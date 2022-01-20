@@ -41,7 +41,7 @@ export default function Navbar(props) {
             <Link className="btn btn-primary mx-1" to="/login" role="button">
               Login
             </Link>
-            <Link className="btn btn-primary mx-1" to="/signup" role="button">
+            <Link className="btn btn-primary mx-1" to="/register" role="button">
               Signup
             </Link>
           </form>

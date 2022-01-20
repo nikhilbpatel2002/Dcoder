@@ -9,13 +9,18 @@ app.use(cors());
 app.use(express.json());
 
 //Database
-// connectToMongo() ; 
+connectToMongo() ; 
+
+
 
 
 //Routes
 app.use('/ide', require('./routes/ide'))
 app.use('/upcomingcontest', require('./routes/upcomingcontest'))
 app.use('/question', require('./routes/question'))
+app.use('/login', require('./routes/login'))
+app.use('/register', require('./routes/register'))
+
 // Event.find({}, function(err,events)
 // {
 // 	if(err) console.warn(err);
@@ -29,3 +34,6 @@ app.get("/",(req,res) => res.send(users));
 app.listen(port, () => {
   console.log(`dcoder backend listening at http://localhost:${port}`)
 })
+
+
+
