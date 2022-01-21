@@ -40,31 +40,12 @@ router.post("/",(req,res)=>{
         }
         else{
             const user= new User({
-                name : name ,
                 email : email ,
                 password : password
             })
 
-            var mailOptions = {
-                from : 'nbjtestproject@gmail.com',
-                to : email ,
-                subject : 'Chilly Food - Verify your Email ✔' ,
-                text : OTP,
-                // html : "<h5>Your OTP is "+OTP +"</h5>"
-                html : `<p><span style="font-size:18px">Please use the below OTP to verify your email information on ChillyFood&nbsp;</span></p>&nbsp;<h1><span style="color:#000080"><em><strong>`+OTP+`</strong>
-                </em><span></h1><br /><span style="font-size:18px"><strong>Note : Do not share your OTP&nbsp;to anyone
-                </strong><br /><br /><br />Thanks,<br/>Team ChillyFood</span>`
-            }
+            user.save() ; 
             
-            transporter.sendMail(mailOptions,function(err,info){
-                if(err){
-                    console.log(err);
-                }else{
-                    console.log("Email sent: " + info.response );
-                }
-            });
-
-            res.send( {user : user, OTP: OTP})
            
         }
     })

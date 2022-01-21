@@ -20,6 +20,7 @@ app.use('/upcomingcontest', require('./routes/upcomingcontest'))
 app.use('/question', require('./routes/question'))
 app.use('/login', require('./routes/login'))
 app.use('/register', require('./routes/register'))
+app.use('/modifyProfile', require('./routes/modifyProfile'))
 
 // Event.find({}, function(err,events)
 // {

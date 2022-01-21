@@ -36,6 +36,15 @@ export default function Navbar(props) {
                 Question
               </a>
             </li>
+            <li className="nav-item">
+              <a
+                className="nav-link active"
+                aria-current="page"
+                href="/modifyProfile"
+              >
+                Modify profile
+              </a>
+            </li>
           </ul>
           <form className="d-flex">
             <Link className="btn btn-primary mx-1" to="/login" role="button">

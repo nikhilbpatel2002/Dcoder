@@ -7,6 +7,7 @@ import Contest from "./Contest/Contest";
 import Question from "./Question/Question";
 import Ide from "./IDE/Ide";
 import Otp from "./Register/Otp";
+import Profile from "./Profile/Profile";
 export default function Home() {
   return (
     <div>
@@ -31,6 +32,9 @@ export default function Home() {
             </Route>o
             <Route path="/register/otp">
               <Otp/>
+            </Route>
+            <Route path="/modifyProfile">
+              <Profile/>
             </Route>
           </Switch>
         </div>
