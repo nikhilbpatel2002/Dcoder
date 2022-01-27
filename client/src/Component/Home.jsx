@@ -8,6 +8,7 @@ import Question from "./Question/Question";
 import Ide from "./IDE/Ide";
 import Otp from "./Register/Otp";
 import Profile from "./Profile/Profile";
+import QuestionList from "./Question/QuestionList";
 export default function Home() {
   return (
     <div>
@@ -21,9 +22,15 @@ export default function Home() {
             <Route path="/IDE">
               <Ide />
             </Route>
-            <Route path="/Question">
-              <Question />
+            <Route exact path="/Question">
+            
+              <QuestionList />
             </Route>
+            <Route
+                exact
+                path="/question/:id"
+                render={(props) => <Question id={props.match.params.id} />}
+              />
             <Route exact path="/Register">
               <Register />
             </Route>
