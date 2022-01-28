@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 // challengeDifficulty, title , description , inputFormat , outputFormat , tags , testcase
-// props reuse 
-// 
+// props reuse
+//
 export default function QuestionWriter() {
   const [question, setQuestion] = useState({
     challengeDifficulty: "",
@@ -10,8 +10,17 @@ export default function QuestionWriter() {
     description: "",
     inputFormat: "",
     outputFormat: "",
-    tags: "",
+    tags: [],
   });
+  const checkBoxOptions = [
+    { key: "Select an option", value: "" },
+    { key: "Binary Search", value: "binary search" },
+    { key: "dynamic programming", value: "dynamic programming" },
+    { key: "BFS", value: "BFS" },
+    { key: "Graph", value: "Graph" },
+    { key: "Tree", value: "Tree" },
+    { key: "", value: "" }
+  ];
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -33,12 +42,12 @@ export default function QuestionWriter() {
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(question)
+      body: JSON.stringify(question),
     })
       .then(() => alert("Question Added successfuly"))
       .catch((err) => console.log("error : " + err));
   };
-  
+
   return (
     <>
       <div className="container ">
@@ -116,7 +125,7 @@ export default function QuestionWriter() {
             <div className="mb-3">
               <label className="form-label">Tags</label>
               <input
-                type="text"
+                type="checkbox  "
                 name="tags"
                 value={question.tags}
                 className="form-control"

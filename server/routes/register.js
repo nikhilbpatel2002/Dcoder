@@ -65,9 +65,6 @@ router.post("/",(req,res)=>{
             console.log(OTP);
             res.send( {user : user, OTP: OTP})
 
-            // user.save() ; 
-            
-           
         }
     })
     

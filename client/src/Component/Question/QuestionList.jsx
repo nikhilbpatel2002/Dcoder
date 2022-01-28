@@ -4,10 +4,11 @@ import { useHistory } from "react-router-dom";
 
 export default function QuestionList() {
   const [questions, setQuestions] = useState([]);
+  const [difficulty, setDifficulty] = useState("all");
   let history = useHistory();
-  useEffect(() => {
+   useEffect(() => {
     axios
-      .get("/question/questionList/")
+      .get("/question/questionList/"+difficulty)
       .then((res) => {
         console.log(res);
         setQuestions(res.data);
@@ -15,17 +16,37 @@ export default function QuestionList() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
-  const goToBlog = (e) => {
-    history.push("/question/" + e.id);
-  };
+  }, [difficulty]);
+
 
   return (
     <>
+      <form className="col-3 mt-4" >
+        <div className="mb-3">
+          <label for="exampleInputEmail1" className="form-label">
+           <h4> Difficulty Level</h4>
+          </label>
+          <select
+            className="form-select"
+            name="challengeDifficulty"
+            aria-label="Default select example"
+            onChange={(e) => {setDifficulty(e.target.value);}}
+          >
+            <option value="all" >All</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+            <option value="advance">Advance</option>
+            <option value="expert">Expert</option>
+          </select>
+        </div>
+      </form>
+
       <table className="table table-hover" style={{ backgroundColor: "white" }}>
         <thead>
           <tr>
             <th scope="col">Title</th>
+            <th scope="col">Difficulty Level</th>
             <th scope="col">Read Question</th>
           </tr>
         </thead>
@@ -33,6 +54,7 @@ export default function QuestionList() {
           {questions.map((item) => (
             <tr key={item.id}>
               <td>{item.title}</td>
+              <td>{item.challengeDifficulty}</td>
               <td>
                 <button
                   type="button"
@@ -42,7 +64,7 @@ export default function QuestionList() {
                   }}
                   id={item._id}
                 >
-                  Read 
+                  Read
                 </button>
               </td>
             </tr>
@@ -108,6 +130,5 @@ export default function BlogTable(props) {
   );
 }
  */
-
 
 /*  */

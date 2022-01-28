@@ -6,9 +6,12 @@ const Question = require('../models/Question');
 // router.get('/question',(req,res)=>res.send("question"));
 // router.get('/:id',(req,res)=>res.send("question"));
 
-router.get('/questionList/', async (req, res) => {
-    
-    let question = await Question.find({});
+router.get('/questionList/:difficulty', async (req, res) => {
+    console.log(req.params.difficulty.toString());
+    let question = Question();
+    if (req.params.difficulty.toString() == "all") question = await Question.find({});
+    else
+        question = await Question.find({ challengeDifficulty: req.params.difficulty.toString() });
     if (question) {
         console.log(question);
         res.json(question);
@@ -34,7 +37,7 @@ router.get('/:id', async (req, res) => {
 
 router.post('/questionWriter', (req, res) => {
     const { challengeDifficulty, title, description, inputFormat, outputFormat, tags } = req.body
-    
+
     const question = new Question(
         {
 

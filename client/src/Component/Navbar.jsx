@@ -31,9 +31,9 @@ export default function Navbar(props) {
               <a
                 className="nav-link active"
                 aria-current="page"
-                href="/question"
+                href="/questionList"
               >
-                Question
+                Questions
               </a>
             </li>
             <li className="nav-item">

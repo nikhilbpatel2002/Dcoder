@@ -23,8 +23,7 @@ export default function Home() {
             <Route path="/IDE">
               <Ide />
             </Route>
-            <Route exact path="/Question">
-            
+            <Route exact path="/questionList">
               <QuestionList />
             </Route>
             <Route
