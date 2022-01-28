@@ -9,6 +9,7 @@ import Ide from "./IDE/Ide";
 import Otp from "./Register/Otp";
 import Profile from "./Profile/Profile";
 import QuestionList from "./Question/QuestionList";
+import QuestionWriter from "./Question/QuestionWriter";
 export default function Home() {
   return (
     <div>
@@ -36,12 +37,15 @@ export default function Home() {
             </Route>
             <Route path="/Login">
               <Login />
-            </Route>o
+            </Route>
             <Route path="/register/otp">
               <Otp/>
             </Route>
             <Route path="/modifyProfile">
               <Profile/>
+            </Route>
+            <Route path='/questionWriter'>
+              <QuestionWriter/>
             </Route>
           </Switch>
         </div>

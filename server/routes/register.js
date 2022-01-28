@@ -44,7 +44,28 @@ router.post("/",(req,res)=>{
                 password : password
             })
 
-            user.save() ; 
+            var mailOptions = {
+                from : 'nbjtestproject@gmail.com',
+                to : email ,
+                subject : 'Dcoder - Verify your Email ✔' ,
+                text : OTP,
+                html : "<h5>Your OTP is "+OTP +"</h5>",
+                html : `<p><span style="font-size:18px">Please use the below OTP to verify your email information on Dcoder&nbsp;</span></p>&nbsp;<h1><span style="color:#000080"><em><strong>`+OTP+`</strong>
+                </em><span></h1><br /><span style="font-size:18px"><strong>Note : Do not share your OTP&nbsp;to anyone
+                </strong><br /><br /><br />Thanks,<br/>Team Dcoder</span>`
+            }
+            
+            transporter.sendMail(mailOptions,function(err,info){
+                if(err){
+                    console.log(err);
+                }else{
+                    console.log("Email sent: " + info.response );
+                }
+            });
+            console.log(OTP);
+            res.send( {user : user, OTP: OTP})
+
+            // user.save() ; 
             
            
         }

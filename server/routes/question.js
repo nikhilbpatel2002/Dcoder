@@ -34,8 +34,7 @@ router.get('/:id', async (req, res) => {
 
 router.post('/questionWriter', (req, res) => {
     const { challengeDifficulty, title, description, inputFormat, outputFormat, tags } = req.body
-    res.send("question")
-
+    
     const question = new Question(
         {
 

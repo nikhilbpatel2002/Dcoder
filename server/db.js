@@ -7,6 +7,8 @@ function connectToDB(){
         useUnifiedTopology:true
     }).then(()=>{
         console.warn("DB is now connected");
+    }) . catch((req)=>{
+        console.warn("Error " + req );
     })
 };
 

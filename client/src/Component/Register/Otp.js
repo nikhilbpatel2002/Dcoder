@@ -30,7 +30,7 @@ function Otp()
     {
         if(userOtp.otp===validOtp)
         {
-            axios.post("http://localhost:5000/register_",user)
+            axios.post("http://localhost:5000/register/otp",user)
             .then ( res => {
                 {
                     history.push("/login")
