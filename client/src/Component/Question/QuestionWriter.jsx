@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import EditorBox from '../EditorBox' ; 
 // challengeDifficulty, title , description , inputFormat , outputFormat , tags , testcase
 // props reuse
 //
@@ -30,7 +30,7 @@ export default function QuestionWriter() {
       [name]: value,
     });
 
-    // console.log(question);
+    console.log(question);
   }
 
   const ModifyProfile = (e) => {
@@ -97,6 +97,7 @@ export default function QuestionWriter() {
                 aria-describedby="Title"
                 onChange={handleChange}
               />
+               {/* <EditorBox setText = {handleChange}/> */}
             </div>
             <div className="mb-3">
               <label className="form-label">Input Format</label>
