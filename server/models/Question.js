@@ -15,9 +15,9 @@ const QuestionSchema = new mongoose.Schema({
     outputFormat :{
         type: String
     },
-    tags :{
+    tags: [{
         type: String
-    }
+    }]
     
 });
 

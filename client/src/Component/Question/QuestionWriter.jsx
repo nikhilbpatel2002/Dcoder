@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import EditorBox from '../EditorBox' ; 
+import EditorBox from "../EditorBox";
 // challengeDifficulty, title , description , inputFormat , outputFormat , tags , testcase
 // props reuse
 //
@@ -12,14 +12,14 @@ export default function QuestionWriter() {
     outputFormat: "",
     tags: [],
   });
-  const checkBoxOptions = [
+  const tagOptions = [
     { key: "Select an option", value: "" },
     { key: "Binary Search", value: "binary search" },
     { key: "dynamic programming", value: "dynamic programming" },
     { key: "BFS", value: "BFS" },
     { key: "Graph", value: "Graph" },
     { key: "Tree", value: "Tree" },
-    { key: "", value: "" }
+    { key: "", value: "" },
   ];
 
   function handleChange(e) {
@@ -97,7 +97,7 @@ export default function QuestionWriter() {
                 aria-describedby="Title"
                 onChange={handleChange}
               />
-               {/* <EditorBox setText = {handleChange}/> */}
+              {/* <EditorBox setText = {handleChange}/> */}
             </div>
             <div className="mb-3">
               <label className="form-label">Input Format</label>
@@ -125,8 +125,9 @@ export default function QuestionWriter() {
 
             <div className="mb-3">
               <label className="form-label">Tags</label>
+
               <input
-                type="checkbox  "
+                type="text"
                 name="tags"
                 value={question.tags}
                 className="form-control"
@@ -134,6 +135,41 @@ export default function QuestionWriter() {
                 onChange={handleChange}
               />
             </div>
+            {/* <div className="mb-3">
+              <label className="form-label">Tags</label>
+              <input
+                type="checkbox"
+                name="tags"
+                value={question.tags}
+                className="form-control"
+                id="tags"
+                onChange={handleChange}
+              />
+            </div> */}
+
+            {/* <div> */}
+            {/* <div className="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+              {tagOptions.map((item) => (
+                <span key={item.id}>
+                  <input type="checkbox" className="btn-check form-control" id = 'tags' onClick={handleChange} name={item.key} autocomplete="off"/>
+                  <label className="btn btn-outline-primary m-1" for="btncheck2">{item.key}</label> */}
+                  {/* <td>{item.title}</td>
+                  <td>{item.challengeDifficulty}</td> */}
+                  {/* <td>
+                    <button
+                      type="button"
+                      className="btn btn-success"
+                      onClick={() => {
+                        tagOptions.push("/question/" + item._id);
+                      }}
+                      id={item._id}
+                    >
+                      Read
+                    </button>
+                  </td> */}
+                {/* </span>
+              ))}
+            </div> */}
 
             <button
               type="submit"

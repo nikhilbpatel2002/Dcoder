@@ -10,7 +10,7 @@ export default function Dummy(props) {
                 name = 'text'
                 tools={OriginalTools}
                 value="<p>test</p>"
-                onChange={props.setText  }
+                onChange={props.setText}
             />
       {/* <div dangerouslySetInnerHTML={{ __html: text}} /> */}
       </div>
