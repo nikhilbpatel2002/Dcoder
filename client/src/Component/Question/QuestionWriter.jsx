@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import useForm from "react-hook-form";
 import EditorBox from "../EditorBox";
+import availableTags from "./Tags";
 // challengeDifficulty, title , description , inputFormat , outputFormat , tags , testcase
 // props reuse
 //
@@ -10,17 +12,10 @@ export default function QuestionWriter() {
     description: "",
     inputFormat: "",
     outputFormat: "",
-    tags: [],
+    tags: ["dp", "bs"],
   });
-  const tagOptions = [
-    { key: "Select an option", value: "" },
-    { key: "Binary Search", value: "binary search" },
-    { key: "dynamic programming", value: "dynamic programming" },
-    { key: "BFS", value: "BFS" },
-    { key: "Graph", value: "Graph" },
-    { key: "Tree", value: "Tree" },
-    { key: "", value: "" },
-  ];
+
+  const tempTags = new Map();
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -33,7 +28,18 @@ export default function QuestionWriter() {
     console.log(question);
   }
 
-  const ModifyProfile = (e) => {
+  function handleChangeTag(e) {
+    const { name, value } = e.target;
+
+    if (tempTags.has(name)) {
+      tempTags.delete(name);
+    } else {
+      tempTags.set(name, value);
+    }
+  }
+
+  const handleSubmit = (e) => {
+    question.tags = Array.from(tempTags.values());
     console.log(question);
     e.preventDefault();
     const url = "http://localhost:5000/question/questionWriter";
@@ -47,7 +53,7 @@ export default function QuestionWriter() {
       .then(() => alert("Question Added successfuly"))
       .catch((err) => console.log("error : " + err));
   };
-
+  
   return (
     <>
       <div className="container ">
@@ -88,93 +94,57 @@ export default function QuestionWriter() {
             </div>
             <div className="mb-3">
               <label className="form-label">Description</label>
-              <input
-                type="text"
-                className="form-control"
-                name="description"
-                value={question.description}
-                id="description"
-                aria-describedby="Title"
-                onChange={handleChange}
-              />
-              {/* <EditorBox setText = {handleChange}/> */}
+              
+               <EditorBox name="description" setQuestion={setQuestion} question={question}/>
             </div>
             <div className="mb-3">
               <label className="form-label">Input Format</label>
-              <input
-                type="text"
-                name="inputFormat"
-                value={question.inputFormat}
-                className="form-control"
-                id="inputFormat"
-                aria-describedby="Title"
-                onChange={handleChange}
-              />
+              <EditorBox name="inputFormat" setQuestion={setQuestion} question={question}/>
             </div>
             <div className="mb-3">
               <label className="form-label">Output Format</label>
-              <input
-                type="text"
-                name="outputFormat"
-                value={question.outputFormat}
-                className="form-control"
-                id="outputFormat"
-                onChange={handleChange}
-              />
+              <EditorBox name="outputFormat" setQuestion={setQuestion} question={question}/>
             </div>
-
             <div className="mb-3">
-              <label className="form-label">Tags</label>
-
-              <input
-                type="text"
-                name="tags"
-                value={question.tags}
-                className="form-control"
-                id="tags"
-                onChange={handleChange}
-              />
+              <label className="form-label">Sample Input</label>
+              <EditorBox name="sampleInput" setQuestion={setQuestion} question={question}/>
             </div>
-            {/* <div className="mb-3">
+            <div className="mb-3">
+              <label className="form-label">Sample Output</label>
+              <EditorBox name="sampleOutput" setQuestion={setQuestion} question={question}/>
+            </div>
+            <div className="mb-3 ">
               <label className="form-label">Tags</label>
-              <input
-                type="checkbox"
-                name="tags"
-                value={question.tags}
-                className="form-control"
-                id="tags"
-                onChange={handleChange}
-              />
-            </div> */}
 
-            {/* <div> */}
-            {/* <div className="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-              {tagOptions.map((item) => (
-                <span key={item.id}>
-                  <input type="checkbox" className="btn-check form-control" id = 'tags' onClick={handleChange} name={item.key} autocomplete="off"/>
-                  <label className="btn btn-outline-primary m-1" for="btncheck2">{item.key}</label> */}
-                  {/* <td>{item.title}</td>
-                  <td>{item.challengeDifficulty}</td> */}
-                  {/* <td>
-                    <button
-                      type="button"
-                      className="btn btn-success"
-                      onClick={() => {
-                        tagOptions.push("/question/" + item._id);
-                      }}
-                      id={item._id}
-                    >
-                      Read
-                    </button>
-                  </td> */}
-                {/* </span>
-              ))}
-            </div> */}
+              <div
+                className="btn-group container overflow-scroll  border border-2 my-3 p-3 rounded"
+                role="group"
+                aria-label="Basic checkbox toggle button group"
+              >
+                {availableTags.map((value, key) => (
+                  <div key={key} className="m-1">
+                    <input
+                      type="checkbox"
+                      className="btn-check"
+                      id={key}
+                      name={key}
+                      value={value}
+                      autocomplete="off"
+                      onChange={handleChangeTag}
+                    />
+                    <label className="btn btn-outline-primary  " for={key}>
+                      {value}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <br />
 
             <button
               type="submit"
-              className="btn btn-primary"
-              onClick={ModifyProfile}
+              className="btn btn-primary my-3"
+              onClick={handleSubmit}
             >
               Submit
             </button>

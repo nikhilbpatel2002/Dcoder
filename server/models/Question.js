@@ -15,6 +15,12 @@ const QuestionSchema = new mongoose.Schema({
     outputFormat :{
         type: String
     },
+    sampleInput :{
+        type : String 
+    },
+    sampleOutput : {
+        type : String 
+    },
     tags: [{
         type: String
     }]
@@ -23,4 +29,4 @@ const QuestionSchema = new mongoose.Schema({
 
 const Question = new mongoose.model("Question",QuestionSchema)
 
-module.exports = Question;
+module.exports = Question

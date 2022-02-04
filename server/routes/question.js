@@ -1,4 +1,5 @@
 const express = require('express');
+const mongodb = require('mongodb');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const Question = require('../models/Question');
@@ -6,12 +7,22 @@ const Question = require('../models/Question');
 // router.get('/question',(req,res)=>res.send("question"));
 // router.get('/:id',(req,res)=>res.send("question"));
 
-router.get('/questionList/:difficulty', async (req, res) => {
+router.get('/questionList/:difficulty/:tag', async (req, res) => {
     console.log(req.params.difficulty.toString());
     let question = Question();
-    if (req.params.difficulty.toString() == "all") question = await Question.find({});
-    else
+    if (req.params.difficulty.toString() == "all" && req.params.tag.toString() == "all") question = await Question.find({});
+    else if (req.params.difficulty.toString() == "all")
+    {
+        //only search by tag
+        //db.inventory.find( { tags: { $all: ["red", "blank"] } } )
+        question = await Question.find({tags: req.params.tag.toString() }) ;
+    }
+    else if (req.params.tag.toString() == "all"){
         question = await Question.find({ challengeDifficulty: req.params.difficulty.toString() });
+    }
+    // if (req.params.difficulty.toString() == "all") question = await Question.find({});
+    else
+        question = await Question.find({ challengeDifficulty: req.params.difficulty.toString(),tags: req.params.tag.toString() });
     if (question) {
         console.log(question);
         res.json(question);
@@ -36,13 +47,13 @@ router.get('/:id', async (req, res) => {
 
 
 router.post('/questionWriter', (req, res) => {
-    const { challengeDifficulty, title, description, inputFormat, outputFormat, tags } = req.body
+    const { challengeDifficulty, title, description, inputFormat, outputFormat, sampleInput,sampleOutput, tags } = req.body
 
     const question = new Question(
         {
 
             challengeDifficulty: challengeDifficulty,
-            title: title, description: description, inputFormat: inputFormat, outputFormat: outputFormat, tags: tags
+            title: title, description: description, inputFormat: inputFormat, outputFormat: outputFormat, sampleInput: sampleInput , sampleOutput:sampleOutput , tags: tags
         }
     );
     question.save(err => {
@@ -55,6 +66,12 @@ router.post('/questionWriter', (req, res) => {
     })
 
 });
+// delete question using id 
+router.delete("/:id", async ( req,res)=>{
+    console.log(req.params.id);
+    const result = await Question.deleteOne({_id:new mongodb.ObjectId(req.params.id)})
+    res.send( {message : "Question deleted successfully."});
+})
 module.exports = router
 
 

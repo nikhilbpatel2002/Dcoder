@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <div>
       <Router>
-        <Navbar title= "Online Coding Platform" />
+        <Navbar title= "Dcoder" />
         <div className="container">
           <Switch>
             <Route path="/contest">
