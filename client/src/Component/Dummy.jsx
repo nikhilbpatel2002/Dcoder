@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Question from './Question/Question';
 import QuestionList from './Question/QuestionList';
 import QuestionWriter from './Question/QuestionWriter';
+import QuestionEditor from './Question/QuestionEditor';
 import { Editor, OriginalTools } from 'react-bootstrap-editor';
 import EditorBox from './EditorBox' ; 
 
@@ -21,10 +22,8 @@ export default function Dummy(props) {
 
   
   return (
-      <div className='container border border-5 m-3 p-3 rounded'>
-      <EditorBox setText = {setText}/>
-      <div dangerouslySetInnerHTML={{ __html: text}} />
+    <div className='container'>
+      <QuestionEditor/>
     </div>
-
   ) ; 
 }

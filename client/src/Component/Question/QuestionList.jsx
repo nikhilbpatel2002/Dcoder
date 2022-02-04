@@ -37,14 +37,14 @@ export default function QuestionList() {
   }
   function handleDelete(e) {
     const confirmBox = window.confirm(
-      "Do you really want to delete this Crumb?"
+      "Do you really want to delete this Question?"
     );
     if (confirmBox === true) {
       console.log(e.target.id);
       axios
         .delete("/question/" + e.target.id)
         .then((res) => {
-          // alert(res.data.message)
+          alert(res.data.message)
           setFlag(!flag);
         })
         .catch((err) => {
@@ -138,7 +138,9 @@ export default function QuestionList() {
           <tr>
             <th scope="col">Title</th>
             <th scope="col">Difficulty Level</th>
+            <th scope="col">Tags</th>
             <th scope="col">Read Question</th>
+            <th scope="col">Edit Question</th>
             <th scope="col">Delete Question</th>
           </tr>
         </thead>
@@ -147,6 +149,9 @@ export default function QuestionList() {
             <tr key={item.id}>
               <td>{item.title}</td>
               <td>{item.challengeDifficulty}</td>
+              <td>{item.tags.map((item)=>(
+                <span>{item} , </span>
+              ))}</td>
               <td>
                 <button
                   type="button"
@@ -157,6 +162,18 @@ export default function QuestionList() {
                   id={item._id}
                 >
                   Read
+                </button>
+              </td>
+              <td>
+                <button
+                  type="button"
+                  className="btn btn-outline-primary"
+                  onClick={() => {
+                    history.push("/question/editor/" + item._id);
+                  }}
+                  id={item._id}
+                >
+                  Edit
                 </button>
               </td>
 
@@ -178,60 +195,3 @@ export default function QuestionList() {
   );
 }
 
-/* 
-
-export default function BlogTable(props) {
-  const [posts, setPosts] = useState([]);
-  let history = useHistory();
-
-  useEffect(() => {
-    axios
-      .get("/education/data/" + props.name)
-      .then((res) => {
-        console.log(res);
-        setPosts(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  const goToBlog = (e) => {
-    history.push("/blog/" + e.id);
-  };
-
-  return (
-    <>
-      <table className="table table-hover" style={{ backgroundColor: "white" }}>
-        <thead>
-          <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Read Blog</th>
-          </tr>
-        </thead>
-        <tbody>
-          {posts.map((item) => (
-            <tr key={item.id}>
-              <td>{item.title}</td>
-              <td>
-                <button
-                  type="button"
-                  className="btn btn-success"
-                  onClick={() => {
-                    history.push("/blog/" + item._id);
-                  }}
-                  id={item._id}
-                >
-                  Read Blog
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </>
-  );
-}
- */
-
-/*  */

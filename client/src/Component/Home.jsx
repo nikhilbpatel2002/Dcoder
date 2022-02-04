@@ -10,6 +10,7 @@ import Otp from "./Register/Otp";
 import Profile from "./Profile/Profile";
 import QuestionList from "./Question/QuestionList";
 import QuestionWriter from "./Question/QuestionWriter";
+import QuestionEditor from "./Question/QuestionEditor";
 export default function Home() {
   return (
     <div>
@@ -26,6 +27,12 @@ export default function Home() {
             <Route exact path="/questionList">
               <QuestionList />
             </Route>
+
+            <Route
+                exact
+                path="/question/editor/:id"
+                render={(props) => <QuestionEditor id={props.match.params.id} />}
+              />
             <Route
                 exact
                 path="/question/:id"

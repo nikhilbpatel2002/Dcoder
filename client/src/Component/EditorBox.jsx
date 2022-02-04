@@ -13,12 +13,14 @@ export default function Dummy(props) {
     console.log(props.question);
   }
 
+  
+
   return (
       <div className='container border border-5 m-3 p-3 rounded'>
       <Editor
                 // name ={props.name}
                 tools={OriginalTools}
-                // value="<p>test</p>"
+                value={props.value}
                 onChange={handleChangeBox }
             />
       {/* <div dangerouslySetInnerHTML={{ __html: text}} /> */}

@@ -18,6 +18,16 @@ export default function Question(props) {
         console.log("error while retraving question \n" + err);
       });
   }, []);
+  function printTag(tags){
+    // const str = "";
+    // for (let index = 0; index < tags.length; index++) {
+    //   const element = tags[index];
+    //   str += element ;
+    //   str += ", " ;
+    // }
+    console.log( "tags prined"+tags);
+    return tags[0] ;
+  }
   return (
     <>
       <div className="mt-4">
@@ -46,16 +56,18 @@ export default function Question(props) {
           </div>
           <div>
             <h4> Tags </h4>
-            {/* <div>{
-              question.tags.map((tag,index)=>(
-                <span>
-                <span key={index} className="my-3">{tag}</span>
-                {
-                  index+1 != question.tags.length ? <span> , </span> : <span></span>
-                }
-                </span>
-              ))
-              } </div> */}
+            <div>{question.tags}</div>
+            {/* <div>{printTag(question.tags)}</div> */}
+            {/* <div>
+              <table><tr>
+                {question.tags.map((tag) => (
+                  <td key={tag} >
+                    {tag},
+                  </td>
+                ))}
+                </tr>
+              </table>
+            </div> */}
           </div>
         </div>
       </div>

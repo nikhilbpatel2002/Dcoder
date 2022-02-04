@@ -1,22 +1,36 @@
-import React, { useState } from "react";
-import useForm from "react-hook-form";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import EditorBox from "../EditorBox";
 import availableTags from "./Tags";
+import Alert from "@material-ui/lab/Alert";
 // challengeDifficulty, title , description , inputFormat , outputFormat , tags , testcase
 // props reuse
 //
-export default function QuestionWriter() {
-  const [question, setQuestion] = useState({
-    challengeDifficulty: "",
-    title: "",
-    description: "",
-    inputFormat: "",
-    outputFormat: "",
-    sampleInput:"",
-    sampleOutput:"",
-    tags: ["dp", "bs"],
-  });
+export default function QuestionEditor(props) {
+//   const [question, setQuestion] = useState({
+//     challengeDifficulty: "",
+//     title: "",
+//     description: "dfadgfafgd",
+//     inputFormat: "input ",
+//     outputFormat: "output",
+//     sampleInput:"sam i",
+//     sampleOutput:"sam o",
+//     tags: ["dp", "bs"],
+//   });
 
+  const [question, setQuestion] = useState([]);
+  useEffect(() => {
+    axios
+      .get("/question/" + props.id)
+      .then((res) => {
+        console.log(res);
+        setQuestion(res.data);
+        console.log("hello dsf askld");
+      })
+      .catch((err) => {
+        console.log("error while retraving question \n" + err);
+      });
+  }, []);
   const tempTags = new Map();
 
   function handleChange(e) {
@@ -44,15 +58,22 @@ export default function QuestionWriter() {
     question.tags = Array.from(tempTags.values());
     console.log(question);
     e.preventDefault();
-    const url = "http://localhost:5000/question/questionWriter";
+    // const url = "http://localhost:5000/question/questionWriter";
+    // fetch(url, {
+    //   method: "POST",
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(question),
+    const url = "http://localhost:5000/question/questionEditor/" + props.id;
     fetch(url, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "content-type": "application/json",
       },
       body: JSON.stringify(question),
     })
-      .then(() => alert("Question Added successfuly"))
+      .then((res) =>(alert("Question Updated successfully.")))
       .catch((err) => console.log("error : " + err));
   };
   
@@ -97,23 +118,23 @@ export default function QuestionWriter() {
             <div className="mb-3">
               <label className="form-label">Description</label>
               
-               <EditorBox name="description" setQuestion={setQuestion} question={question}/>
+               <EditorBox name="description" setQuestion={setQuestion} question={question} value = {question.description}/>
             </div>
             <div className="mb-3">
               <label className="form-label">Input Format</label>
-              <EditorBox name="inputFormat" setQuestion={setQuestion} question={question}/>
+              <EditorBox name="inputFormat" setQuestion={setQuestion} question={question} value = {question.inputFormat}/>
             </div>
             <div className="mb-3">
               <label className="form-label">Output Format</label>
-              <EditorBox name="outputFormat" setQuestion={setQuestion} question={question}/>
+              <EditorBox name="outputFormat" setQuestion={setQuestion} question={question} value = {question.outputFormat}/>
             </div>
             <div className="mb-3">
               <label className="form-label">Sample Input</label>
-              <EditorBox name="sampleInput" setQuestion={setQuestion} question={question}/>
+              <EditorBox name="sampleInput" setQuestion={setQuestion} question={question} value = {question.sampleInput}/>
             </div>
             <div className="mb-3">
               <label className="form-label">Sample Output</label>
-              <EditorBox name="sampleOutput" setQuestion={setQuestion} question={question}/>
+              <EditorBox name="sampleOutput" setQuestion={setQuestion} question={question} value = {question.sampleOutput}/>
             </div>
             <div className="mb-3 ">
               <label className="form-label">Tags</label>
@@ -133,6 +154,7 @@ export default function QuestionWriter() {
                       value={value}
                       autocomplete="off"
                       onChange={handleChangeTag}
+                     
                     />
                     <label className="btn btn-outline-primary  " for={key}>
                       {value}
@@ -148,7 +170,7 @@ export default function QuestionWriter() {
               className="btn btn-primary my-3"
               onClick={handleSubmit}
             >
-              Submit
+              Update
             </button>
           </form>
         </div>

@@ -30,7 +30,7 @@ app.use('/modifyProfile', require('./routes/modifyProfile'))
 // 	//app.get("/data",(req,res) => res.send(users));
 // 	console.log(events);
 // })
-app.get("/",(req,res) => res.send(users));
+// app.get("/",(req,res) => res.send(users));
 
 app.listen(port, () => {
   console.log(`dcoder backend listening at http://localhost:${port}`)
