@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const User = require('../models/User');
-const nodemailer = require('nodemailer')
+const Profile = require('../models/Profile');
+const nodemailer = require('nodemailer');
+
 
 var transporter = nodemailer.createTransport({
     service:'gmail',
@@ -20,7 +22,7 @@ var transporter = nodemailer.createTransport({
 
 
 router.post("/",(req,res)=>{
-    const {name , email , password } =req.body
+    const {fName , email , password } =req.body
 
     function getRandomInt(min, max) {
         min = Math.ceil(min);
@@ -40,6 +42,7 @@ router.post("/",(req,res)=>{
         }
         else{
             const user= new User({
+                fName: fName ,
                 email : email ,
                 password : password
             })
@@ -70,18 +73,21 @@ router.post("/",(req,res)=>{
     
 })
 
-router.post("/otp",(req,res)=>{
-    const {name , email , password } =req.body
+router.post("/otp",async(req,res)=>{
+    const {fName , email , password } =req.body
     const user= new User({
-        name : name ,
+        fName : fName ,
         email : email ,
         password : password
     })
-    user.save(err => {
+    user.save(async(err) => {
         if(err){
             console.log(err)
             res.send( err)
         }else{
+            let usr = await User.findOne({ email:email });
+            let profile = new Profile({userId:usr._id , fName : usr.fName});
+            profile.save();
             res.send( { message : "Successfully Registered , Please Login Now"})
         }
     })

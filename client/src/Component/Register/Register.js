@@ -6,12 +6,13 @@ import axios from "axios" ;
 import {useHistory} from "react-router-dom"
 import useStyles from '../Form/styles';
 
+
 function Register ({showAlert}) {
     let history = useHistory()
     const classes = useStyles();
     const [alert, setAlert] = useState(false);
     const [user , setUser] = useState({
-        name : "",
+        fName : "",
         email : "",
         password : "",
         rePassword:""
@@ -29,9 +30,9 @@ function Register ({showAlert}) {
 
     function register ()
     {
-        const {name,email,password,rePassword}=user
+        const {fName,email,password,rePassword}=user
 
-        if(name && email && password && password===rePassword)
+        if(fName && email && password && password===rePassword)
         {
             // alert("valid")
             axios.post("http://localhost:5000/register",user)
@@ -64,7 +65,7 @@ function Register ({showAlert}) {
         <Paper className={classes.paper}>
             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`}>
                 <Typography variant="h6">Register</Typography>
-                <TextField required name="name" variant="outlined" label="Name" fullWidth value={user.name} onChange={handleChange} />
+                <TextField required name="fName" variant="outlined" label="Name" fullWidth value={user.fName} onChange={handleChange} />
                 <TextField required name="email" variant="outlined" label="Email" fullWidth value={user.email} onChange={handleChange} />
                 <TextField required name="password" type="password" variant="outlined" label="Password" fullWidth value={user.password} onChange={handleChange}/>
                 <TextField required name="rePassword" type="password" variant="outlined" label="Re-Password" fullWidth value={user.rePassword} onChange={handleChange}/>

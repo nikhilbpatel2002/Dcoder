@@ -18,10 +18,10 @@ function Otp()
     const classes = useStyles();
 
     const validOtp=location.state.otp.toString()
-    const {name,email,password}=location.state.user
+    const {fName,email,password}=location.state.user
 
     const [user , setUser] = useState({
-        name : name,
+        fName : fName,
         email : email,
         password : password,
     })

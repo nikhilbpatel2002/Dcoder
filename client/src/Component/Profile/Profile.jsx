@@ -1,47 +1,38 @@
 import React, { useState } from "react";
 
 export default function Profile() {
-  const [fName, setFName] = useState("");
-  const [lName, setLName] = useState("");
-  const [companyName, setCompanyName] = useState("");
-  const [collegeName, setCollegeName] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
-  const [gender, setGender] = useState("");
-  const [contactNumber, setContactNumber] = useState("");
-  const [address, setAddress] = useState("");
-//   const [profile, setProfile] = useState({
-//     fName: "",
-//     lName: "",
-//     companyName: "",
-//     collegeName: "",
-//     dateOfBirth: "",
-//     gender: "",
-//     contactNumber: "",
-//     address: "",
-//   });
+  // const [fName, setFName] = useState("");
+  // const [lName, setLName] = useState("");
+  // const [companyName, setCompanyName] = useState("");
+  // const [collegeName, setCollegeName] = useState("");
+  // const [dateOfBirth, setDateOfBirth] = useState("");
+  // const [gender, setGender] = useState("");
+  // const [contactNumber, setContactNumber] = useState("");
+  // const [address, setAddress] = useState("");
+  const [profile, setProfile] = useState({
+    fName: "",
+    lName: "",
+    companyName: "",
+    collegeName: "",
+    dateOfBirth: "",
+    gender: "",
+    contactNumber: "",
+    address: "",
+  });
 
-  const ModifyProfile = (e) => {
-    console.log(JSON.stringify({
-      fName,
-      lName,
-      companyName,
-      collegeName,
-      dateOfBirth,
-      gender,
-      contactNumber,
-      address,
-    }));
-    alert(
-      JSON.stringify({
-        fName,
-        lName,
-        companyName,
-        collegeName,
-        dateOfBirth,
-        gender,
-        contactNumber,
-        address,
+  function handleChange (e)
+  {
+      const {name , value} = e.target
+      
+      setProfile({
+          ...profile,
+          [name] : value
       })
+  }
+  const ModifyProfile = (e) => {
+    console.log(JSON.stringify(profile));
+    alert(
+      JSON.stringify(profile)
     );
     e.preventDefault();
     const url = 'http://localhost:5000/modifyProfile';
@@ -50,7 +41,7 @@ export default function Profile() {
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({fName,lName,companyName,collegeName,dateOfBirth,gender,contactNumber,address })
+            body: JSON.stringify(profile)
 
         })
             .then(() => alert("profile modify successfuly") )
@@ -67,8 +58,10 @@ export default function Profile() {
                 type="text"
                 className="form-control"
                 id="First Name"
+                name = "fName"
+                value={profile.fName}
                 aria-describedby="Title"
-                onChange={(e) => setFName(e.target.value)}
+                onChange={handleChange}
               />
             </div>
             <div className="mb-3">
@@ -77,8 +70,10 @@ export default function Profile() {
                 type="text"
                 className="form-control"
                 id="Last Name"
+                name = "lName"
+                value={profile.lName}
                 aria-describedby="Title"
-                onChange={(e) => setLName(e.target.value)}
+                onChange={handleChange}
               />
             </div>
             <div className="mb-3">
@@ -87,18 +82,23 @@ export default function Profile() {
                 type="text"
                 className="form-control"
                 id="Company Name"
+                name = "companyName"
+                value={profile.companyName}
                 aria-describedby="Title"
-                onChange={(e) => setCompanyName(e.target.value)}
+                onChange={handleChange}
               />
             </div>
+            
             <div className="mb-3">
               <label className="form-label">College Name</label>
               <input
                 type="text"
                 className="form-control"
                 id="College Name"
+                name = "collegeName"
+                value={profile.collegeName}
                 aria-describedby="Title"
-                onChange={(e) => setCollegeName(e.target.value)}
+                onChange={handleChange}
               />
             </div>
 
@@ -108,8 +108,10 @@ export default function Profile() {
                 type="Date"
                 className="form-control"
                 id="Date of Birth"
+                name = "dateOfBirth"
+                value={profile.dateOfBirth}
                 aria-describedby="Date"
-                onChange={(e) => setDateOfBirth(e.target.value)}
+                onChange={handleChange}
               />
             </div>
             <div className="mb-3">
@@ -118,8 +120,10 @@ export default function Profile() {
                 type="text"
                 className="form-control"
                 id="Gender"
+                name = "gender"
+                value={profile.gender}
                 aria-describedby="Title"
-                onChange={(e) => setGender(e.target.value)}
+                onChange={handleChange}
               />
             </div>
             <div className="mb-3">
@@ -128,8 +132,10 @@ export default function Profile() {
                 type="text"
                 className="form-control"
                 id="Contact Number"
+                name = "contactNumber"
+                value={profile.contactNumber}
                 aria-describedby="Title"
-                onChange={(e) => setContactNumber(e.target.value)}
+                onChange={handleChange}
               />
             </div>
             <div className="mb-3">
@@ -138,8 +144,10 @@ export default function Profile() {
                 type="text"
                 className="form-control"
                 id="Address"
+                name = "address"
+                value={profile.address}
                 aria-describedby="Address"
-                onChange={(e) => setAddress(e.target.value)}
+                onChange={handleChange}
               />
             </div>
 
