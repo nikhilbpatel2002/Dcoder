@@ -132,8 +132,8 @@ export default function QuestionList() {
         </div>
       </form> */}
       </div>
-
-      <table className="table table-hover" style={{ backgroundColor: "white" }}>
+      <div className="container border border-2 m-3 p-2 rounded">
+      <table className="table table-hover  " style={{ backgroundColor: "white" }}>
         <thead>
           <tr>
             <th scope="col">Title</th>
@@ -191,7 +191,9 @@ export default function QuestionList() {
           ))}
         </tbody>
       </table>
+      </div>
     </>
   );
 }
+
 

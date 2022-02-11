@@ -10,7 +10,7 @@ const Question = require('../models/Question');
 
 // get qeustions by filder
 router.get('/questionList/:difficulty/:tag', async (req, res) => {
-    console.log(req.params.difficulty.toString());
+    // console.log(req.params.difficulty.toString());
     let question = Question();
     if (req.params.difficulty.toString() == "all" && req.params.tag.toString() == "all") question = await Question.find({});
     else if (req.params.difficulty.toString() == "all") {
@@ -25,7 +25,7 @@ router.get('/questionList/:difficulty/:tag', async (req, res) => {
     else
         question = await Question.find({ challengeDifficulty: req.params.difficulty.toString(), tags: req.params.tag.toString() });
     if (question) {
-        console.log(question);
+        // console.log(question);
         res.json(question);
     }
     else {
@@ -38,7 +38,7 @@ router.get('/:id', async (req, res) => {
     // id = "61f2b4e2ac3689e63399f9f8";
     let question = await Question.findOne({ _id: req.params.id.toString() });
     if (question) {
-        console.log(question);
+        // console.log(question);
         res.json(question);
     }
     else {
@@ -91,7 +91,7 @@ router.put('/questionEditor/:id', (req, res) => {
 });
 // delete question using id 
 router.delete("/:id", async (req, res) => {
-    console.log(req.params.id);
+    // console.log(req.params.id);
     const result = await Question.deleteOne({ _id: new mongodb.ObjectId(req.params.id) })
     res.send({ message: "Question deleted successfully." });
 })
