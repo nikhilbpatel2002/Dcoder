@@ -7,7 +7,7 @@ const User = require('../models/Profile');
 router.post("/", (req, res) => {
     const { userId, fName, lName, companyName, collegeName, dateOfBirth, gender, contactNumber, address } = req.body
 
-    User.findOne({ userId: userId }, (err, profile) => {
+    User.findOne({ userId: "61fd2059c2a7c553c6eeb819" }, (err, profile) => {
         if (profile) {
             if (fName)
                 profile.fName = fName;
