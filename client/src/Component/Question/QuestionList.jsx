@@ -54,8 +54,8 @@ export default function QuestionList() {
   }
 
   return (
-    <>
-      <div className="row">
+    <div className="container ">
+      <div className="container  row">
         <form className="col-4 mt-4">
           <div className="mb-3">
             <label for="exampleInputEmail1" className="form-label">
@@ -78,7 +78,7 @@ export default function QuestionList() {
             </select>
           </div>
         </form>
-        <div className="col-2"></div>
+        <div className="col-3"></div>
         <form className="col-4 mt-4">
           <div className="mb-3">
             <label for="exampleInputEmail1" className="form-label">
@@ -192,7 +192,7 @@ export default function QuestionList() {
         </tbody>
       </table>
       </div>
-    </>
+    </div>
   );
 }
 

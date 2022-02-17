@@ -3,66 +3,80 @@ import ReactDOM from "react-dom";
 import axios from "axios";
 import Editor from "@monaco-editor/react";
 import { useState } from "react";
+import languages from "./Language";
 
 export default function Ide() {
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
   const [input, setInput] = useState("");
+  const [language, setLanguage] = useState( ["C","c"]);
 
   function handleRun(e) {
     e.preventDefault();
-    // const url = "http://localhost:5000/ide/" ;
-    // fetch(url, {
-    //   method: "POST",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   body: JSON.stringify({code}),
-    // })
-    //   .then((res) =>(console.log(res.data.message)))
-    //   .catch((err) => console.log("error : hell"));
-
-    axios.post("http://localhost:5000/ide/", { code: code ,input:input}).then((res) => {
-      console.log(res.data);
-      setOutput(res.data.output);
-    });
+    console.log("language",language[0]);
+    // axios
+    //   .post("http://localhost:5000/ide/", {
+    //     code: code,
+    //     input: input,
+    //     language: language[1],
+    //   })
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     setOutput(res.data.output);
+    //   });
   }
+
   function handleEditorChange(value, event) {
     // here is the current value
     setCode(value);
   }
+
   function handleInputChange(value, event) {
     // here is the current value
     setInput(value);
   }
-  // function handleOutputChange(value, event) {
-  //   // here is the current value
-  //   // setOutput(value);
-  //   // event(output) ; 
-    
-  // }
 
-  function handleEditorDidMount(editor, monaco) {
-    console.log("onMount: the editor instance:", editor);
-    console.log("onMount: the monaco instance:", monaco);
-  }
-
-  function handleEditorWillMount(monaco) {
-    console.log("beforeMount: the monaco instance:", monaco);
-  }
-
-  function handleEditorValidation(markers) {
-    // model markers
-    // markers.forEach(marker => console.log('onValidate:', marker.message));
-  }
+  const handleCopy = () => {
+    navigator.clipboard.writeText(code);
+    alert("Copied to Clipboard!", "success");
+  };
 
   return (
     <div className="row bg-dark px-4" style={{ height: "95vh" }}>
       <div className="col-8">
         <div className="  border border-2 m-2 p-2 rounded  border  bg-dark">
+          <div className="row">
+            <div className="col-4 ">
+              <select
+                className="form-select bg-dark "
+                name="challengeDifficulty"
+                aria-label="Default select example"
+                style={{ color: "white" }}
+                onChange={(e) => {
+                  setLanguage([e.target.value0,e.target.value1]);
+                  console.log(e.target);
+                }}
+                // value={language[0]}
+              >
+                {languages.map((value, index) => (
+                  <option value0={value[0]} value1={value[1]} key={index} >
+                    {value[0]}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className=" col m-2 d-md-flex justify-content-md-end">
+              <a onClick={handleCopy} style={{ cursor: "pointer" }}>
+                <i
+                  className="fa fa-copy "
+                  style={{ fontSize: "24px", color: "white" }}
+                />
+              </a>
+            </div>
+          </div>
           <Editor
-            height="75vh"
-            defaultLanguage="C++"
+            height="70vh"
+            defaultLanguage={language[0]}
             defaultValue="// write code here"
             theme="vs-dark"
             onChange={handleEditorChange}
@@ -70,7 +84,7 @@ export default function Ide() {
           <div className="mx-3 d-md-flex justify-content-md-end">
             <button
               type="submit"
-              className="btn btn-primary my-3 "
+              className="btn btn-outline-primary my-3 "
               onClick={handleRun}
             >
               Run

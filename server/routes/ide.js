@@ -8,13 +8,14 @@ const { body, validationResult } = require('express-validator');
 // 
 
 router.post('/',async(req,res)=>{
-    const { code,input} = req.body
+    const { code,input,language} = req.body
     console.log("hello");
     console.log(code);
+    console.log("language " , language);
     var program = {
         script : code,
         stdin:input ,
-        language: "cpp14",
+        language: language,
         versionIndex: "0",
         clientId: "6b9cb7c8a2328869a3ede7a4d167b2d0",
         clientSecret:"c3e31d55e9a385391f9f70ab1d1f3ebece6ebcc58498fe18c2904b5e72243345"
