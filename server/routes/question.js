@@ -34,7 +34,7 @@ router.get('/questionList/:difficulty/:tag', async (req, res) => {
 })
 
 // get quesiton
-router.get('/:id', async (req, res) => {
+router.get('/:id/', async (req, res) => {
     // id = "61f2b4e2ac3689e63399f9f8";
     let question = await Question.findOne({ _id: req.params.id.toString() });
     if (question) {
@@ -47,7 +47,7 @@ router.get('/:id', async (req, res) => {
 })
 
 // add new question
-router.post('/questionWriter', (req, res) => {
+router.post('/questionWriter/', (req, res) => {
     const { challengeDifficulty, title, description, inputFormat, outputFormat, sampleInput, sampleOutput, tags } = req.body
 
     const question = new Question(

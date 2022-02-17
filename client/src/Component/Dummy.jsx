@@ -1,29 +1,81 @@
-import React, { useState } from 'react';
-import Question from './Question/Question';
-import QuestionList from './Question/QuestionList';
-import QuestionWriter from './Question/QuestionWriter';
-import QuestionEditor from './Question/QuestionEditor';
-import { Editor, OriginalTools } from 'react-bootstrap-editor';
-import EditorBox from './EditorBox' ; 
+import React from "react";
+import ReactDOM from "react-dom";
 
-export default function Dummy(props) {
-  const [text,setText] = useState('') ; 
+import Editor from "@monaco-editor/react";
+import { useState } from "react";
 
-  function handleChange (e) 
-    {
-      // const {name , value} = e.target
-      // setText({
-      //   [name] : value
-      // })
-      setText(e) ; 
-      console.log(text);
-      
+export default function Dummy() {
+  const [code,setCode] = useState('');
+  function handleRun() {
+    
+  }
+  function handleEditorChange(value, event) {
+    // here is the current value
+    setCode(value);
   }
 
-  
+  function handleEditorDidMount(editor, monaco) {
+    console.log("onMount: the editor instance:", editor);
+    console.log("onMount: the monaco instance:", monaco);
+  }
+
+  function handleEditorWillMount(monaco) {
+    console.log("beforeMount: the monaco instance:", monaco);
+  }
+
+  function handleEditorValidation(markers) {
+    // model markers
+    // markers.forEach(marker => console.log('onValidate:', marker.message));
+  }
+
   return (
-    <div className='container'>
-      <QuestionEditor/>
+    <div className="row bg-dark" style={{height:"95vh"}}>
+      <div className="col-8  border border-2  p-2 rounded  border  bg-dark">
+        <Editor
+          height="50%"
+          defaultLanguage="C++"
+          defaultValue="// some comment"
+          theme="vs-dark"
+          onChange={handleEditorChange}
+          onMount={handleEditorDidMount}
+          beforeMount={handleEditorWillMount}
+          onValidate={handleEditorValidation}
+        />
+      </div>
+      
+      {/* <div className="col">
+        <div
+          className="border border-2 rounded m-2"
+          // style={{ height: "45%", color: "white" }}
+        >
+          <Editor
+            height="43vh"
+            defaultLanguage="C++"
+            defaultValue="// some comment"
+            theme="vs-dark"
+            onChange={handleEditorChange}
+            onMount={handleEditorDidMount}
+            beforeMount={handleEditorWillMount}
+            onValidate={handleEditorValidation}
+          />
+        </div>
+
+        <div
+          className="border border-2 rounded m-2"
+          // style={{ height: "45%", color: "white" }}
+        >
+          <Editor
+            height="43vh"
+            defaultLanguage="C++"
+            defaultValue="// some comment"
+            theme="vs-dark"
+            onChange={handleEditorChange}
+            onMount={handleEditorDidMount}
+            beforeMount={handleEditorWillMount}
+            onValidate={handleEditorValidation}
+          />
+        </div>
+      </div> */}
     </div>
-  ) ; 
+  );
 }

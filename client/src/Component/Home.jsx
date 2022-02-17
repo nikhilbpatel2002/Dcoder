@@ -16,7 +16,8 @@ export default function Home() {
     <div>
       <Router>
         <Navbar title= "Dcoder" />
-        <div className="container">
+        {/* <div className="container"> */}
+        <div>
           <Switch>
             <Route path="/contest">
               <Contest />

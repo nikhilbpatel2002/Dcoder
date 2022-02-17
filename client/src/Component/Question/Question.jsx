@@ -5,7 +5,7 @@ import axios from "axios";
 // reander -> useeffect
 // reader -> useeffect -> usestate -> reader
 export default function Question(props) {
-  const [question, setQuestion] = useState([]);
+  const [question, setQuestion] = useState([]); 
   useEffect(() => {
     axios
       .get("/question/" + props.id)

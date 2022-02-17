@@ -13,7 +13,7 @@ export default function Navbar(props) {
               <Link
                 className="nav-link active"
                 aria-current="page"
-                to="/IDE"
+                to="/ide"
               >
                 IDE
               </Link>
