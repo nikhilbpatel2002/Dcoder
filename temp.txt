@@ -568,3 +568,12 @@ https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG3zCOd6hR1W7VQy7Tur7Dpvgk
 
 4f4b4a
 
+#include<stdio.h>
+int main()
+{
+    int n ; 
+    scanf("%d",&n);
+
+    printf("heelo = %d",n);
+    return 0 ; 
+}

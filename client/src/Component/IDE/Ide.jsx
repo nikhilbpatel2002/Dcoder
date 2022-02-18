@@ -9,21 +9,21 @@ export default function Ide() {
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
   const [input, setInput] = useState("");
-  const [language, setLanguage] = useState( ["C","c"]);
+  let [language, setLanguage] = useState("c");
 
   function handleRun(e) {
     e.preventDefault();
-    console.log("language",language[0]);
-    // axios
-    //   .post("http://localhost:5000/ide/", {
-    //     code: code,
-    //     input: input,
-    //     language: language[1],
-    //   })
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     setOutput(res.data.output);
-    //   });
+    console.log("language", language);
+    axios
+      .post("http://localhost:5000/ide/", {
+        code: code,
+        input: input,
+        language: language,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setOutput(res.data.output);
+      });
   }
 
   function handleEditorChange(value, event) {
@@ -49,18 +49,16 @@ export default function Ide() {
             <div className="col-4 ">
               <select
                 className="form-select bg-dark "
-                name="challengeDifficulty"
                 aria-label="Default select example"
                 style={{ color: "white" }}
                 onChange={(e) => {
-                  setLanguage([e.target.value0,e.target.value1]);
-                  console.log(e.target);
+                  setLanguage(e.target.value);
+                  console.log( "onchange" ,e.target.value);
                 }}
-                // value={language[0]}
               >
-                {languages.map((value, index) => (
-                  <option value0={value[0]} value1={value[1]} key={index} >
-                    {value[0]}
+                {languages.map((item, index) => (
+                  <option value={item[1]}  key={index}>
+                    {item[0]}
                   </option>
                 ))}
               </select>
@@ -77,7 +75,7 @@ export default function Ide() {
           <Editor
             height="70vh"
             defaultLanguage={language[0]}
-            defaultValue="// write code here"
+            defaultValue=""
             theme="vs-dark"
             onChange={handleEditorChange}
           />

@@ -5,4 +5,5 @@ const languages = [
     ["Javascript","nodejs"],
     ["Python3","python3"],
 ]
+// const languages = ["c","cpp14","java","nodejs","python3"]
 export default languages ; 
