@@ -2,11 +2,11 @@ import React, { useCallback } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 import Editor from "@monaco-editor/react";
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import languages from "./Language";
 
 export default function Ide() {
-  const [code, setCode] = useState("");
+  let [code, setCode] = useState("");
   const [output, setOutput] = useState("");
   const [input, setInput] = useState("");
   let [language, setLanguage] = useState("c");
@@ -26,7 +26,7 @@ export default function Ide() {
       });
   }
   // useEffect(() => {
-  //   // setCode(code," ") ; 
+  //   // setCode(code," ") ;
   // }, [code]);
 
   function handleEditorChange(value, event) {
@@ -54,17 +54,13 @@ export default function Ide() {
     document.body.appendChild(element);
     element.click();
   };
-
-  let showFile = (e) => {
+  let showFile = async (e) => {
     e.preventDefault();
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = async (e) => {
       const text = e.target.result;
-      // const hello = text ; 
-      // console.log(hello);
-      setCode(reader.result) ;
+      setCode(text);
       console.log(code);
-      // console.log(reader.result);
     };
     reader.readAsText(e.target.files[0]);
   };
@@ -144,6 +140,7 @@ export default function Ide() {
             defaultValue=""
             theme="Pastels-on-Dark"
             onChange={handleEditorChange}
+            value = {code}
           />
           {/* <div className="mx-3 d-md-flex justify-content-md-end">
             <button
