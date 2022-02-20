@@ -577,3 +577,17 @@ int main()
     printf("heelo = %d",n);
     return 0 ; 
 }
+
+
+
+#include<iostream>
+using namespace std ; 
+int main () 
+{
+    cout << "good afternoon!" ; 
+    return 0 ; 
+}
+
+
+console.log( "good afternoon!")
+
