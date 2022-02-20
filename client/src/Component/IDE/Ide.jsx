@@ -92,17 +92,18 @@ export default function Ide() {
             <div className="col-4"></div>
             <div className="col-2">
               <div className="row">
-                <div className="col-4">
+                <div className="col-2 "></div>
+                <div className="col-3  pt-3">
                   <i
                     onClick={downloadTxtFile}
-                    className="fa  mx-3  pt-2  fa-download"
+                    className="fa    fa-download"
                     style={{ fontSize: "24px", color: "white" }}
                   ></i>
                 </div>
-                <div className="col-4">
+                <div className="col-3">
                   <label for="files" className="btn">
                     <i
-                      className="fa  mx-3 pt-2  fa-upload"
+                      className="fa   pt-2  fa-upload"
                       style={{ fontSize: "24px", color: "white" }}
                     ></i>
                   </label>
@@ -135,12 +136,12 @@ export default function Ide() {
             </div>
           </div>
           <Editor
-            height="78vh"
+            height="77vh"
             defaultLanguage={language[0]}
             defaultValue=""
             theme="Pastels-on-Dark"
             onChange={handleEditorChange}
-            value = {code}
+            value={code}
           />
           {/* <div className="mx-3 d-md-flex justify-content-md-end">
             <button
@@ -164,21 +165,46 @@ export default function Ide() {
                 Input
               </h5>
             </div>
-            <div className="col ">
-              <a
-                onClick={handleCopy}
-                style={{ cursor: "pointer" }}
-                className="d-md-flex justify-content-md-end"
-              >
-                <i
-                  className="fa fa-copy "
-                  style={{ fontSize: "24px", color: "white" }}
-                />
-              </a>
+            {/* <div className="col "> */}
+            <div className="col">
+              <div className="row">
+                <div className="col-4 "></div>
+                <div className="col-2 pt-2">
+                  <i
+                    onClick={downloadTxtFile}
+                    className="fa    fa-download"
+                    style={{ fontSize: "24px", color: "white" }}
+                  ></i>
+                </div>
+                <div className="col-3">
+                  <label for="files" className="btn">
+                    <i
+                      className="fa  fa-upload"
+                      style={{ fontSize: "24px", color: "white" }}
+                    ></i>
+                  </label>
+                  <input
+                    id="files"
+                    style={{ display: "none" }}
+                    type="file"
+                    onChange={showFile}
+                  />
+                </div>
+
+                <div className="col-3  pt-2">
+                  <a onClick={handleCopy} style={{ cursor: "pointer" }}>
+                    <i
+                      className="fa fa-copy "
+                      style={{ fontSize: "24px", color: "white" }}
+                    />
+                  </a>
+                </div>
+              </div>
+              {/* </div> */}
             </div>
           </div>
           <Editor
-            height="36vh"
+            height="34vh"
             defaultLanguage="C++"
             defaultValue=""
             theme="vs-dark"
@@ -197,20 +223,29 @@ export default function Ide() {
               </h5>
             </div>
             <div className="col ">
-              <a
-                onClick={handleCopy}
-                style={{ cursor: "pointer" }}
-                className="d-md-flex justify-content-md-end"
-              >
-                <i
-                  className="fa fa-copy "
-                  style={{ fontSize: "24px", color: "white" }}
-                />
-              </a>
+            <div className="row">
+                <div className="col-7 "></div>
+                <div className="col-2 pt-2">
+                  <i
+                    onClick={downloadTxtFile}
+                    className="fa    fa-download"
+                    style={{ fontSize: "24px", color: "white" }}
+                  ></i>
+                </div>
+
+                <div className="col-3  pt-2">
+                  <a onClick={handleCopy} style={{ cursor: "pointer" }}>
+                    <i
+                      className="fa fa-copy "
+                      style={{ fontSize: "24px", color: "white" }}
+                    />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
           <Editor
-            height="36vh"
+            height="35vh"
             defaultLanguage="C++"
             defaultValue={output}
             value={output}
