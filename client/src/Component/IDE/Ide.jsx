@@ -5,11 +5,13 @@ import Editor from "@monaco-editor/react";
 import { useState, useEffect } from "react";
 import languages from "./Language";
 
-export default function Ide() {
+export default function Ide(props) {
   let [code, setCode] = useState("");
   const [output, setOutput] = useState("");
   const [input, setInput] = useState("");
   let [language, setLanguage] = useState("c");
+  let [saveFileName, setSaveFileName] = useState("");
+  const [codeId, setCodeId] = useState("");
 
   function handleRun(e) {
     e.preventDefault();
@@ -25,6 +27,25 @@ export default function Ide() {
         setOutput(res.data.output);
       });
   }
+  useEffect(() => {
+    console.log(props.codeId);
+    if (props.codeId != "") {
+      let url = "http://localhost:5000/code/getCode/" + props.codeId;
+      axios
+        .get(url)
+        .then((res) => {
+          console.log(res);
+          setCode(res.data.code);
+          setLanguage(res.data.language);
+          setCodeId(props.codeId);
+          setSaveFileName(res.data.fileName);
+          console.log("hello dsf askld");
+        })
+        .catch((err) => {
+          console.log("error while retraving code \n" + err);
+        });
+    }
+  }, []);
   // useEffect(() => {
   //   // setCode(code," ") ;
   // }, [code]);
@@ -42,6 +63,51 @@ export default function Ide() {
   const handleCopy = () => {
     navigator.clipboard.writeText(code);
     alert("Copied to Clipboard!", "success");
+  };
+  const handleSave = async () => {
+    navigator.clipboard.writeText(code);
+    let text = "";
+    if (saveFileName == null || saveFileName == "") {
+      let fileName = prompt(" Enter file name:", "fileName");
+      if (fileName == null || fileName == "") {
+        text = "File name can't be blank!";
+        alert(text, "success");
+      } else {
+        setSaveFileName(fileName);
+        // e.preventDefault();
+        console.log("language", language);
+        await axios
+          .post("http://localhost:5000/code/savecode", {
+            code: code,
+            fileName: fileName,
+            language: language,
+          })
+          .then((res) => {
+            // console.log(res.data);
+            let tempid = res.data.id;
+            setCodeId(tempid);
+            console.log("codeid " + tempid);
+            alert(res.data.message, "success");
+          });
+      }
+    } else {
+      // alert(codeId+" " + saveFileName) ;
+      console.log(codeId + " " + saveFileName);
+      let url = "http://localhost:5000/code/updatecode/" + codeId;
+      await axios
+        .put(url, {
+          code: code,
+          fileName: saveFileName,
+          language: language,
+        })
+        .then((res) => {
+          console.log(res.data);
+          text = "File updated successfully!";
+          // alert(text + " " +res.data.id, "success");
+          alert(res.data.message, "success");
+        });
+    }
+    // alert(text, "success");
   };
 
   const downloadTxtFile = () => {
@@ -89,18 +155,18 @@ export default function Ide() {
                 ))}
               </select>
             </div>
-            <div className="col-4"></div>
-            <div className="col-2">
+            <div className="col-3"></div>
+            <div className="col-3">
               <div className="row">
                 <div className="col-2 "></div>
-                <div className="col-3  pt-3">
+                <div className="col-2  pt-3">
                   <i
                     onClick={downloadTxtFile}
                     className="fa    fa-download"
                     style={{ fontSize: "24px", color: "white" }}
                   ></i>
                 </div>
-                <div className="col-3">
+                <div className="col-2">
                   <label for="files" className="btn">
                     <i
                       className="fa   pt-2  fa-upload"
@@ -115,10 +181,18 @@ export default function Ide() {
                   />
                 </div>
 
-                <div className="col-4">
+                <div className="col-3">
                   <a onClick={handleCopy} style={{ cursor: "pointer" }}>
                     <i
                       className="fa fa-copy mx-4   pt-3 "
+                      style={{ fontSize: "24px", color: "white" }}
+                    />
+                  </a>
+                </div>
+                <div className="col-3">
+                  <a onClick={handleSave} style={{ cursor: "pointer" }}>
+                    <i
+                      className="fa fa-save mx-4   pt-3 "
                       style={{ fontSize: "24px", color: "white" }}
                     />
                   </a>
@@ -223,7 +297,7 @@ export default function Ide() {
               </h5>
             </div>
             <div className="col ">
-            <div className="row">
+              <div className="row">
                 <div className="col-7 "></div>
                 <div className="col-2 pt-2">
                   <i

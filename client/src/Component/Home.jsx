@@ -11,6 +11,8 @@ import Profile from "./Profile/Profile";
 import QuestionList from "./Question/QuestionList";
 import QuestionWriter from "./Question/QuestionWriter";
 import QuestionEditor from "./Question/QuestionEditor";
+import MyCode from "./IDE/MyCode";
+import Index from "./Index";
 export default function Home() {
   return (
     <div>
@@ -22,9 +24,15 @@ export default function Home() {
             <Route path="/contest">
               <Contest />
             </Route>
-            <Route path="/IDE">
-              <Ide />
+            <Route exact path="/ide">
+              <Ide codeId=""/>
             </Route>
+            <Route
+                exact
+                path="/ide/:codeId"
+                render={(props) => <Ide codeId={props.match.params.codeId} />}
+              />
+
             <Route exact path="/questionList">
               <QuestionList />
             </Route>
@@ -53,6 +61,12 @@ export default function Home() {
             </Route>
             <Route path='/questionWriter'>
               <QuestionWriter/>
+            </Route>
+            <Route path='/myCode'>
+              <MyCode/>
+            </Route>
+            <Route path='/'>
+              <Index/>
             </Route>
           </Switch>
         </div>

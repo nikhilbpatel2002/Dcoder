@@ -133,9 +133,9 @@ export default function QuestionList() {
       </form> */}
       </div>
       <div className="container border border-2 m-3 p-2 rounded">
-      <table className="table table-hover  " style={{ backgroundColor: "white" }}>
+      <table className="table table-striped  " style={{ backgroundColor: "white" }}>
         <thead>
-          <tr>
+          <tr  style={{ backgroundColor: "#736e6e", color: "white" }}>
             <th scope="col">Title</th>
             <th scope="col">Difficulty Level</th>
             <th scope="col">Tags</th>

@@ -21,6 +21,7 @@ app.use('/question', require('./routes/question'))
 app.use('/login', require('./routes/login'))
 app.use('/register', require('./routes/register'))
 app.use('/modifyProfile', require('./routes/modifyProfile'))
+app.use('/code', require('./routes/code'))
 
 // Event.find({}, function(err,events)
 // {

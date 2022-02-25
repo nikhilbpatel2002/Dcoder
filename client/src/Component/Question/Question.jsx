@@ -5,7 +5,7 @@ import axios from "axios";
 // reander -> useeffect
 // reader -> useeffect -> usestate -> reader
 export default function Question(props) {
-  const [question, setQuestion] = useState([]); 
+  const [question, setQuestion] = useState([]);
   useEffect(() => {
     axios
       .get("/question/" + props.id)
@@ -18,15 +18,15 @@ export default function Question(props) {
         console.log("error while retraving question \n" + err);
       });
   }, []);
-  function printTag(tags){
+  function printTag(tags) {
     // const str = "";
     // for (let index = 0; index < tags.length; index++) {
     //   const element = tags[index];
     //   str += element ;
     //   str += ", " ;
     // }
-    console.log( "tags prined"+tags);
-    return tags[0] ;
+    console.log("tags prined" + tags);
+    return tags[0];
   }
   return (
     <>
@@ -57,17 +57,22 @@ export default function Question(props) {
           <div>
             <h4> Tags </h4>
             <div>{question.tags}</div>
-            {/* <div>{printTag(question.tags)}</div> */}
-            {/* <div>
-              <table><tr>
-                {question.tags.map((tag) => (
+            <div>{printTag(question.tags)}</div>
+            <div>
+              <table>
+                <tr>
+                  {/* {question.tags.map((tag,index) => (
                   <td key={tag} >
                     {tag},
                   </td>
-                ))}
+                ))} */}
+                  {/* {question.tags.map((tag,index) => return <span key={}>HashMap </span>)} */}
+                  {/* {question.tags.map((tag) => {
+                    return  <span key={tag} className="badge bg-light text-dark">{tag}</span>
+                  })} */}
                 </tr>
               </table>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>
