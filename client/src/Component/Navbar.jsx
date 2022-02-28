@@ -19,31 +19,40 @@ export default function Navbar(props) {
               </Link>
             </li>
             <li className="nav-item">
-              <a
+              <Link
                 className="nav-link active"
                 aria-current="page"
-                href="/contest"
+                to="/contest"
               >
                 Contest
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a
+              <Link
                 className="nav-link active"
                 aria-current="page"
-                href="/questionList"
+                to="/questionList"
               >
                 Questions
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a
+              <Link
                 className="nav-link active"
                 aria-current="page"
-                href="/modifyProfile"
+                to="/myCode"
+              >
+                My code
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link active"
+                aria-current="page"
+                to="/modifyProfile"
               >
                 Modify profile
-              </a>
+              </Link>
             </li>
           </ul>
           <form className="d-flex">
