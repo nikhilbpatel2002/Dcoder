@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./Navbar";
 import Register from "./Register/Register";
 import Login from "./Login/Login";
@@ -11,13 +11,16 @@ import Profile from "./Profile/Profile";
 import QuestionList from "./Question/QuestionList";
 import QuestionWriter from "./Question/QuestionWriter";
 import QuestionEditor from "./Question/QuestionEditor";
+import MyQuestionList from "./Question/MyQuestionList";
 import MyCode from "./IDE/MyCode";
 import Index from "./Index";
 export default function Home() {
+  const [flag , setFlag]= useState(false);
+
   return (
     <div>
       <Router>
-        <Navbar title= "Dcoder" />
+        <Navbar title= "Dcoder" flag={flag}  setFlag= {setFlag}/>
         {/* <div className="container"> */}
         <div>
           <Switch>
@@ -50,8 +53,8 @@ export default function Home() {
             <Route exact path="/Register">
               <Register />
             </Route>
-            <Route path="/Login">
-              <Login />
+            <Route path="/Login" >
+              <Login  flag={flag}  setFlag= {setFlag}/>
             </Route>
             <Route path="/register/otp">
               <Otp/>
@@ -64,6 +67,9 @@ export default function Home() {
             </Route>
             <Route path='/myCode'>
               <MyCode/>
+            </Route>
+            <Route path='/myQuestionList'>
+              <MyQuestionList/>
             </Route>
             <Route path='/'>
               <Index/>

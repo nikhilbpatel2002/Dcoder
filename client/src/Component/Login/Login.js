@@ -7,7 +7,7 @@ import { Redirect, useHistory } from "react-router-dom";
 import useStyles from '../Form/styles';
 import App from '../../App';
 
-function Login () {
+function Login (props) {
 
     let history = useHistory()
     const classes = useStyles();
@@ -29,7 +29,7 @@ function Login () {
        })
    }
 
-    function login (props)
+    function login ()
     {
         const {email,password}=user
 
@@ -44,9 +44,8 @@ function Login () {
                         setMessage(res.data.message)
                         setAlert(res.data.message)
                         localStorage.setItem('user',JSON.stringify(res.data.user))
-                        // ReactDOM.render(Navbar);
-                        return <Redirect to="/"/> 
-                        // history.push("/")
+                        props.setFlag(!props.flag) ;
+                        history.push("/")
                     }
                     else
                     {
