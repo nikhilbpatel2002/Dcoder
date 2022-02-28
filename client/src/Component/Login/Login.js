@@ -3,8 +3,9 @@ import "./Login.css" ;
 import { TextField, Button, Typography, Paper, Link } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import axios from "axios" ;
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import useStyles from '../Form/styles';
+import App from '../../App';
 
 function Login () {
 
@@ -28,7 +29,7 @@ function Login () {
        })
    }
 
-    function login ()
+    function login (props)
     {
         const {email,password}=user
 
@@ -42,7 +43,10 @@ function Login () {
                     {
                         setMessage(res.data.message)
                         setAlert(res.data.message)
-                        history.push("/login")
+                        localStorage.setItem('user',JSON.stringify(res.data.user))
+                        // ReactDOM.render(Navbar);
+                        return <Redirect to="/"/> 
+                        // history.push("/")
                     }
                     else
                     {
