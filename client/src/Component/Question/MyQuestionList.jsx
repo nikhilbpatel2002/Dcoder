@@ -11,7 +11,7 @@ export default function QuestionList() {
   let history = useHistory();
   useEffect(() => {
     axios
-      .get("/question/questionList/" + difficulty + "/" + tag)
+      .get("/question/MyQuestionList/"+JSON.parse(localStorage.getItem('user'))._id+"/" + difficulty + "/" + tag)
       .then((res) => {
         console.log(res);
         setQuestions(res.data);
@@ -101,15 +101,47 @@ export default function QuestionList() {
             </select>
           </div>
         </form>
+
+        {/* <form className="col-4   mt-4" >
+        <div className="mb-3">
+          <label for="exampleInputEmail1" className="form-label">
+           <h4> Search by Tags</h4>
+          </label>
+          <div
+                className="btn-group container overflow-scroll  border border-2 my-3 p-3 rounded"
+                role="group"
+                aria-label="Basic checkbox toggle button group"
+              >
+                {availableTags.map((value, key) => (
+                  <div key={key} className="m-1">
+                    <input
+                      type="checkbox"
+                      className="btn-check"
+                      id={key}
+                      name={key}
+                      value={value}
+                      autocomplete="off"
+                      onChange={handleChangeTag}
+                    />
+                    <label className="btn btn-outline-primary  " for={key}>
+                      {value}
+                    </label>
+                  </div>
+                ))}
+              </div>
+        </div>
+      </form> */}
       </div>
       <div className="container border border-2 m-3 p-2 rounded">
       <table className="table table-striped  " style={{ backgroundColor: "white" }}>
         <thead>
           <tr  style={{ backgroundColor: "#736e6e", color: "white" }}>
             <th scope="col">Title</th>
-            <th scope="col">Difficulty </th>
+            <th scope="col">Difficulty Level</th>
             <th scope="col">Tags</th>
-            <th scope="col">Read </th>
+            <th scope="col">Read Question</th>
+            <th scope="col">Edit Question</th>
+            <th scope="col">Delete Question</th>
           </tr>
         </thead>
         <tbody>
@@ -123,13 +155,36 @@ export default function QuestionList() {
               <td>
                 <button
                   type="button"
-                  className="btn btn-outline-secondary"
+                  className="btn btn-outline-success"
                   onClick={() => {
                     history.push("/question/" + item._id);
                   }}
                   id={item._id}
                 >
                   Read
+                </button>
+              </td>
+              <td>
+                <button
+                  type="button"
+                  className="btn btn-outline-primary"
+                  onClick={() => {
+                    history.push("/question/editor/" + item._id);
+                  }}
+                  id={item._id}
+                >
+                  Edit
+                </button>
+              </td>
+
+              <td>
+                <button
+                  id={item._id}
+                  type="button"
+                  className="btn btn-outline-danger"
+                  onClick={handleDelete}
+                >
+                  Delete
                 </button>
               </td>
             </tr>

@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 const User = require('./User');
 //fName,lName,companyName,collegeName,dateOfBirth,gender,contactNumber,address
 const ProfileSchema = new mongoose.Schema({
-    userId: { type: mongoose.Types.ObjectId, ref: 'User' },
+    userId:{
+        type: mongoose.Schema.Types.ObjectId ,
+        ref:'user'
+    },
     fName :{
         type: String    
     },

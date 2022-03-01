@@ -7,6 +7,7 @@ import availableTags from "./Tags";
 //
 export default function QuestionWriter() {
   const [question, setQuestion] = useState({
+    userId:"",
     challengeDifficulty: "",
     title: "",
     description: "",
@@ -44,6 +45,7 @@ export default function QuestionWriter() {
     question.tags = Array.from(tempTags.values());
     console.log(question);
     e.preventDefault();
+    question.userId = JSON.parse(localStorage.getItem('user'))._id ;
     const url = "http://localhost:5000/question/questionWriter";
     fetch(url, {
       method: "POST",

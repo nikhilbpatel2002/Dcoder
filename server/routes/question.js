@@ -32,6 +32,30 @@ router.get('/questionList/:difficulty/:tag', async (req, res) => {
         res.json("error in fatching question list")
     }
 })
+// get qeustions by filder with useid 
+router.get('/MyQuestionList/:id/:difficulty/:tag', async (req, res) => {
+    // console.log(req.params.difficulty.toString());
+    let question = Question();
+    if (req.params.difficulty.toString() == "all" && req.params.tag.toString() == "all") question = await Question.find({ userId:  new mongodb.ObjectId(req.params.id.toString())});
+    else if (req.params.difficulty.toString() == "all") {
+        //only search by tag
+        //db.inventory.find( { tags: { $all: ["red", "blank"] } } )
+        question = await Question.find({userId:  new mongodb.ObjectId(req.params.id.toString()), tags: req.params.tag.toString() });
+    }
+    else if (req.params.tag.toString() == "all") {
+        question = await Question.find({ userId:  new mongodb.ObjectId(req.params.id.toString()),challengeDifficulty: req.params.difficulty.toString() });
+    }
+    // if (req.params.difficulty.toString() == "all") question = await Question.find({});
+    else
+        question = await Question.find({userId:  new mongodb.ObjectId(req.params.id.toString()), challengeDifficulty: req.params.difficulty.toString(), tags: req.params.tag.toString() });
+    if (question) {
+        // console.log(question);
+        res.json(question);
+    }
+    else {
+        res.json("error in fatching question list")
+    }
+})
 
 // get quesiton
 router.get('/:id/', async (req, res) => {
@@ -48,11 +72,11 @@ router.get('/:id/', async (req, res) => {
 
 // add new question  
 router.post('/questionWriter/', (req, res) => {
-    const { challengeDifficulty, title, description, inputFormat, outputFormat, sampleInput, sampleOutput, tags } = req.body
+    const {userId, challengeDifficulty, title, description, inputFormat, outputFormat, sampleInput, sampleOutput, tags } = req.body
 
     const question = new Question(
         {
-
+            userId:  new mongodb.ObjectId(userId),
             challengeDifficulty: challengeDifficulty,
             title: title, description: description, inputFormat: inputFormat, outputFormat: outputFormat, sampleInput: sampleInput, sampleOutput: sampleOutput, tags: tags
         }

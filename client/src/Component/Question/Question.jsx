@@ -57,7 +57,7 @@ export default function Question(props) {
           <div>
             <h4> Tags </h4>
             <div>{question.tags}</div>
-            <div>{printTag(question.tags)}</div>
+            {/* <div>{printTag(question.tags)}</div> */}
             <div>
               <table>
                 <tr>

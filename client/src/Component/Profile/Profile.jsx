@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import "./Style.css";
 
 export default function Profile() {
   const [profile, setProfile] = useState({
+    userId: "",
     fName: "",
     lName: "",
     companyName: "",
@@ -11,31 +13,76 @@ export default function Profile() {
     gender: "",
     contactNumber: "",
     address: "",
+    image:""
   });
-
+  var date  ;
+  useEffect(() => {
+    axios
+      .get("/modifyProfile/" + JSON.parse(localStorage.getItem("user"))._id)
+      .then((res) => {
+        console.log(res.data);
+        setProfile(res.data);
+        date = new Date(profile.dateOfBirth);
+        date = date.toISOString().substr(0,10);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   function handleChange(e) {
     const { name, value } = e.target;
-
+    console.log(JSON.stringify(profile));
     setProfile({
       ...profile,
       [name]: value,
     });
   }
-  const ModifyProfile = (e) => {
+  const ModifyProfile = async (e) => {
     console.log(JSON.stringify(profile));
-    alert(JSON.stringify(profile));
     e.preventDefault();
-    const url = "http://localhost:5000/modifyProfile";
+    let url = "http://localhost:5000/modifyProfile/";
+    await axios.put(url, profile).then((res) => {
+      console.log(res.data);
+      alert(res.data.message, "success");
+    });
+  };
+  /* 
+  const handleSubmit = (e) => {
+    question.tags = Array.from(tempTags.values());
+    console.log(question);
+    e.preventDefault();
+    // const url = "http://localhost:5000/question/questionWriter";
+    // fetch(url, {
+    //   method: "POST",
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(question),
+    const url = "http://localhost:5000/question/questionEditor/" + props.id;
     fetch(url, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(profile),
+      body: JSON.stringify(question),
     })
-      .then(() => alert("profile modify successfuly"))
+      .then((res) =>(alert("Question Updated successfully.")))
       .catch((err) => console.log("error : " + err));
   };
+  let url = "http://localhost:5000/code/updatecode/" + codeId;
+      await axios
+        .put(url, {
+          code: code,
+          fileName: saveFileName,
+          language: language,
+        })
+        .then((res) => {
+          console.log(res.data);
+          text = "File updated successfully!";
+          // alert(text + " " +res.data.id, "success");
+          alert(res.data.message, "success");
+        });
+  */
   return (
     <>
       <div className="container ">
@@ -146,27 +193,26 @@ export default function Profile() {
                 className="btn btn-primary"
                 onClick={ModifyProfile}
               >
-                Submit
+                Save
               </button>
             </div>
             <div className="my-3 col-2 m-4 p-4 " style={{ color: "black" }}>
-              {/* <label>upload photo</label> */}
               <div className="circle">
-              <div>
-                <label for="fileField">
-                  <img src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" />
-                </label>
+                <div>
+                  <label for="fileField">
+                    <img src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" />
+                  </label>
 
-                <input
-                  type="file"
-                  id="fileField"
-                  name="file"
-                  style={{ display: "none" }}
-                  accept="image/*"
-                  // onChange={}
-                />
+                  <input
+                    type="file"
+                    id="fileField"
+                    name="file"
+                    style={{ display: "none" }}
+                    accept="image/*"
+                    // onChange={}
+                  />
+                </div>
               </div>
-            </div>
             </div>
           </div>
         </form>
