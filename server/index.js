@@ -1,13 +1,14 @@
 const connectToMongo = require('./db');
 const express = require('express');
 var cors = require('cors');
+require('dotenv/config');
 //connectToMongo();
 const app = express();
 const port = 5000;
 
 app.use(cors());
 app.use(express.json());
-
+console.log(`Your port is ${process.env.PORT}`);
 //Database
 connectToMongo() ; 
 
@@ -33,8 +34,8 @@ app.use('/code', require('./routes/code'))
 // })
 // app.get("/",(req,res) => res.send(users));
 
-app.listen(port, () => {
-  console.log(`dcoder backend listening at http://localhost:${port}`)
+app.listen(process.env.PORT, () => {
+  console.log(`dcoder backend listening at http://localhost:${process.env.PORT}`)
 })
 
 

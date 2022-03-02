@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 var request = require('request');
+require('dotenv/config');
 // const GovermentScheme = require('../models/GovermentScheme');
 const { body, validationResult } = require('express-validator');
 
@@ -17,8 +18,8 @@ router.post('/',async(req,res)=>{
         stdin:input ,
         language: language,
         versionIndex: "0",
-        clientId: "6b9cb7c8a2328869a3ede7a4d167b2d0",
-        clientSecret:"c3e31d55e9a385391f9f70ab1d1f3ebece6ebcc58498fe18c2904b5e72243345"
+        clientId: process.env.JDOODLE_CLIENTID,
+        clientSecret:process.env.JDOODLE_CLIENTSECRET
     };
     await request({
         url: 'https://api.jdoodle.com/v1/execute',

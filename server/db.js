@@ -1,7 +1,8 @@
 const mon = require("mongoose")
+require('dotenv/config');
 
 function connectToDB(){
-    mon.connect("mongodb+srv://fad1105:fad1105@cluster0.s7ct1.mongodb.net/Dcoder?retryWrites=true&w=majority",
+    mon.connect(process.env.MONGO_URL,
     {
         useNewUrlParser:true,
         useUnifiedTopology:true
