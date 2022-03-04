@@ -39,7 +39,7 @@ export default function Profile() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [flag]);
   function handleChange(e) {
     const { name, value } = e.target;
     setProfile({
