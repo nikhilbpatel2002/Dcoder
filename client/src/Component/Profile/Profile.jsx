@@ -19,13 +19,14 @@ export default function Profile() {
     contactNumber: "",
     address: "",
     imageUrl:
-      "http://res.cloudinary.com/fad1105/image/upload/v1646303866/ldmpgbl7r2dn7wcq1vft.png",
+      "",
   });
   const [img, setImg] = useState(
-    "http://res.cloudinary.com/fad1105/image/upload/v1646303866/ldmpgbl7r2dn7wcq1vft.png"
+    ""
   );
   var curr = new Date();
   var date;
+  let [flag,setFlag] = useState(true);
   useEffect(() => {
     axios
       .get("/modifyProfile/" + JSON.parse(localStorage.getItem("user"))._id)
@@ -38,7 +39,7 @@ export default function Profile() {
       .catch((err) => {
         console.log(err);
       });
-  }, [setImg]);
+  }, []);
   function handleChange(e) {
     const { name, value } = e.target;
     setProfile({
@@ -54,47 +55,11 @@ export default function Profile() {
     let url = "http://localhost:5000/modifyProfile/";
     await axios.put(url, profile).then((res) => {
       console.log(res.data);
+      setFlag(!flag)
       alert(res.data.message, "success");
     });
   };
-  /* 
-  const handleSubmit = (e) => {
-    question.tags = Array.from(tempTags.values());
-    console.log(question);
-    e.preventDefault();
-    // const url = "http://localhost:5000/question/questionWriter";
-    // fetch(url, {
-    //   method: "POST",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(question),
-    const url = "http://localhost:5000/question/questionEditor/" + props.id;
-    fetch(url, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(question),
-    })
-      .then((res) =>(alert("Question Updated successfully.")))
-      .catch((err) => console.log("error : " + err));
-  };
-  let url = "http://localhost:5000/code/updatecode/" + codeId;
-      await axios
-        .put(url, {
-          code: code,
-          fileName: saveFileName,
-          language: language,
-        })
-        .then((res) => {
-          console.log(res.data);
-          text = "File updated successfully!";
-          // alert(text + " " +res.data.id, "success");
-          alert(res.data.message, "success");
-        });
-  */
-
+  
   return (
     <>
       <div className="container ">
@@ -237,30 +202,10 @@ export default function Profile() {
             </form>
           </div>
           <div className="my-3 col-2 m-4 p-4 " style={{ color: "black" }}>
-            {/* <div className="circle">
-                <div>
-                  <label for="fileField">
-                    <img src= {profile.imageurl=="" ? "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" : profile.imageurl }/>
-                    <img src= {profile.imageurl=="" ? "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" : profile.imageurl }/>
-                  </label>
-
-                  <input
-                    type="file"
-                    id="fileField"
-                    name="file"
-                    style={{ display: "none" }}
-                    accept="image/*"
-                    // onChange={}
-                  />
-                </div>
-              </div> */}
-            {/* <ImageUpload profile={profile} setProfile={setProfile} /> */}
-            {/* <Popup trigger={<button className="button"><img src= {profile.imageurl=="" ? "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" : profile.imageurl }/> </button>} modal> */}
-
+           
             <ImageUpload profile={profile} setProfile={setProfile} />
             {/* <img src= "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"/> */}
-            {/* <img src= "http://res.cloudinary.com/fad1105/image/upload/v1646303866/ldmpgbl7r2dn7wcq1vft.png" style={{height:"300px"}}/> */}
-            {/* <img src= {img} style={{height:"300px"}}/> */}
+            
           </div>
         </div>
       </div>

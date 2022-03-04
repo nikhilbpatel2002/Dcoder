@@ -65,6 +65,7 @@ export default function Ide(props) {
     alert("Copied to Clipboard!", "success");
   };
   const handleSave = async () => {
+    const user = JSON.parse(localStorage.getItem('user')) ;
     if (props.save) {
       let text = "";
       if (saveFileName == null || saveFileName == "") {
@@ -81,6 +82,7 @@ export default function Ide(props) {
               code: code,
               fileName: fileName,
               language: language,
+              user : user
             })
             .then((res) => {
               // console.log(res.data);

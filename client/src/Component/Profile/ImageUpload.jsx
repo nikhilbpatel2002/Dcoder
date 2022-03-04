@@ -73,20 +73,27 @@ export default function ImageUpload(props) {
     setErrMsg("");
     closeModal( );
   }
+  
   return (
     <div>
       <button className="btn " onClick={() => setOpen((o) => !o)}>
         {/* <img src={profile.imageurl} /> */}
-        <img
-          src={props.profile.imageUrl}
-          style={{
-            height: "300px",
-            borderRadius: "50%",
-            width: "300px",
-          }}
-          className="circle"
-        />
-        {/* upload image */}
+        {props.profile.imageUrl ? <center>
+              <img
+                className=" m-3 "
+                src={props.profile.imageUrl}
+                alt="chosen"
+                style={{ height: "300px", borderRadius: "50%", width: "300px" }}
+              />
+            </center> :
+            <center>
+            <img
+              className=" m-3 "
+              src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+              alt="chosen"
+              style={{ height: "300px", borderRadius: "50%", width: "300px" }}
+            />
+          </center>}
       </button>
       <Popup
         open={open}
@@ -101,14 +108,22 @@ export default function ImageUpload(props) {
           <Alert msg={errMsg} type="danger" />
           <Alert msg={successMsg} type="success" />
           {!previewSource ? (
-            <center>
+              props.profile.imageUrl ? <center>
               <img
                 className=" m-3 "
                 src={props.profile.imageUrl}
                 alt="chosen"
                 style={{ height: "300px", borderRadius: "50%", width: "300px" }}
               />
-            </center>
+            </center> :
+            <center>
+            <img
+              className=" m-3 "
+              src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+              alt="chosen"
+              style={{ height: "300px", borderRadius: "50%", width: "300px" }}
+            />
+          </center>
           ) : (
             previewSource && (
               <center>

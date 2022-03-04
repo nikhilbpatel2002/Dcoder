@@ -11,8 +11,9 @@ export default function MyCode() {
   useEffect(() => {
     
       let url = "http://localhost:5000/code/codeList/" + language[1];
+      const user = JSON.parse(localStorage.getItem('user')) ;
       axios
-        .get(url)
+        .post(url,user)
         .then((res) => {
           console.log(res);
           setMyCode(res.data);

@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 const CodeSchema = new mongoose.Schema({
+    userId:{
+        type: mongoose.Schema.Types.ObjectId ,
+        ref:'user'
+    },
     fileName :{
         type: String    
     },
