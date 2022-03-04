@@ -37,60 +37,72 @@ export default function Navbar(props) {
                 Questions
               </Link>
             </li>
-            <li className="nav-item">
-              <Link
-                className="nav-link active"
-                aria-current="page"
-                to="/myCode"
-              >
-                My code
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                className="nav-link active"
-                aria-current="page"
-                to="/modifyProfile"
-              >
-                Modify profile
-              </Link>
-            </li>
+            {JSON.parse(localStorage.getItem("user")) && (
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/myCode"
+                >
+                  My code
+                </Link>
+              </li>
+            )}
+            {/* {JSON.parse(localStorage.getItem("user")) && (
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/modifyProfile"
+                >
+                  Modify profile
+                </Link>
+              </li>
+            )} */}
           </ul>
           {localStorage.getItem("user") ? (
             <form className="d-flex">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item active dropdown">
+                <li className="nav-item active dropdown">
+                  <Link
+                    className="nav-link active dropdown-toggle"
+                    to="/"
+                    id="navbarDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    style={{ color: "white" }}
+                  >
+                    Hello {JSON.parse(localStorage.getItem("user")).fName}
+                  </Link>
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="navbarDropdown"
+                  >
+                    <li className="nav-item">
+                      <Link
+                        className="nav-link "
+                        aria-current="page"
+                        to="/modifyProfile"
+                        style={{ color: "black" }}
+                      >
+                        Modify profile
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="dropdown-item" to="/myQuestionList">
+                        My Question
+                      </Link>
+                    </li>
+                  </ul>
+                </li>
                 <Link
-                  className="nav-link active dropdown-toggle"
-                  to="/"
-                  id="navbarDropdown"
+                  className="btn btn-primary mx-1"
+                  onClick={handleLogout}
                   role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                  style={{"color":"white"}}
                 >
-                  Hello {JSON.parse(localStorage.getItem('user')).fName}
+                  Logout
                 </Link>
-                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li>
-                    <Link className="dropdown-item" href="#">
-                      Action
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="dropdown-item" to='/myQuestionList'>
-                      My Question
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-              <Link
-                className="btn btn-primary mx-1"
-                onClick={handleLogout}
-                role="button"
-              >
-                Logout
-              </Link>
               </ul>
             </form>
           ) : (
