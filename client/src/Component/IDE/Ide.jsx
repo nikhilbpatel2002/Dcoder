@@ -65,49 +65,50 @@ export default function Ide(props) {
     alert("Copied to Clipboard!", "success");
   };
   const handleSave = async () => {
-    navigator.clipboard.writeText(code);
-    let text = "";
-    if (saveFileName == null || saveFileName == "") {
-      let fileName = prompt(" Enter file name:", "fileName");
-      if (fileName == null || fileName == "") {
-        text = "File name can't be blank!";
-        alert(text, "success");
+    if (props.save) {
+      let text = "";
+      if (saveFileName == null || saveFileName == "") {
+        let fileName = prompt(" Enter file name:", "fileName");
+        if (fileName == null || fileName == "") {
+          text = "File name can't be blank!";
+          alert(text, "success");
+        } else {
+          setSaveFileName(fileName);
+          // e.preventDefault();
+          console.log("language", language);
+          await axios
+            .post("http://localhost:5000/code/savecode", {
+              code: code,
+              fileName: fileName,
+              language: language,
+            })
+            .then((res) => {
+              // console.log(res.data);
+              let tempid = res.data.id;
+              setCodeId(tempid);
+              console.log("codeid " + tempid);
+              alert(res.data.message, "success");
+            });
+        }
       } else {
-        setSaveFileName(fileName);
-        // e.preventDefault();
-        console.log("language", language);
+        // alert(codeId+" " + saveFileName) ;
+        console.log(codeId + " " + saveFileName);
+        let url = "http://localhost:5000/code/updatecode/" + codeId;
         await axios
-          .post("http://localhost:5000/code/savecode", {
+          .put(url, {
             code: code,
-            fileName: fileName,
+            fileName: saveFileName,
             language: language,
           })
           .then((res) => {
-            // console.log(res.data);
-            let tempid = res.data.id;
-            setCodeId(tempid);
-            console.log("codeid " + tempid);
+            console.log(res.data);
+            text = "File updated successfully!";
+            // alert(text + " " +res.data.id, "success");
             alert(res.data.message, "success");
           });
       }
-    } else {
-      // alert(codeId+" " + saveFileName) ;
-      console.log(codeId + " " + saveFileName);
-      let url = "http://localhost:5000/code/updatecode/" + codeId;
-      await axios
-        .put(url, {
-          code: code,
-          fileName: saveFileName,
-          language: language,
-        })
-        .then((res) => {
-          console.log(res.data);
-          text = "File updated successfully!";
-          // alert(text + " " +res.data.id, "success");
-          alert(res.data.message, "success");
-        });
+      // alert(text, "success");
     }
-    // alert(text, "success");
   };
 
   const downloadTxtFile = () => {
@@ -157,7 +158,9 @@ export default function Ide(props) {
             </div>
             <div className="col-3"></div>
             <div className="col-3">
-              <div className="row">
+              {
+                props.save ?(
+                  <div className="row">
                 <div className="col-2 "></div>
                 <div className="col-2  pt-3">
                   <i
@@ -198,6 +201,32 @@ export default function Ide(props) {
                   </a>
                 </div>
               </div>
+                )
+                :
+                (
+                  <div className="row">
+                <div className="col-7 "></div>
+                <div className="col-2  pt-3">
+                  <i
+                    onClick={downloadTxtFile}
+                    className="fa    fa-download"
+                    style={{ fontSize: "24px", color: "white" }}
+                  ></i>
+                </div>
+
+                <div className="col-3">
+                  <a onClick={handleCopy} style={{ cursor: "pointer" }}>
+                    <i
+                      className="fa fa-copy mx-4   pt-3 "
+                      style={{ fontSize: "24px", color: "white" }}
+                    />
+                  </a>
+                </div>
+              </div>
+                )
+              }
+              
+              
             </div>
             <div className=" col m-2  d-md-flex justify-content-md-end">
               <button

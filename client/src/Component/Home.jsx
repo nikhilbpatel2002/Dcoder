@@ -14,6 +14,7 @@ import QuestionEditor from "./Question/QuestionEditor";
 import MyQuestionList from "./Question/MyQuestionList";
 import MyCode from "./IDE/MyCode";
 import Index from "./Index";
+import ShowCode from "./IDE/ShowCode";
 export default function Home() {
   const [flag , setFlag]= useState(false);
 
@@ -28,14 +29,18 @@ export default function Home() {
               <Contest />
             </Route>
             <Route exact path="/ide">
-              <Ide codeId=""/>
+              <Ide codeId="" save={true}/>
             </Route>
             <Route
                 exact
                 path="/ide/:codeId"
-                render={(props) => <Ide codeId={props.match.params.codeId} />}
+                render={(props) => <Ide codeId={props.match.params.codeId} save={true} />}
               />
-
+            <Route
+                exact
+                path="/code/:id"
+                render={(props) => <Ide  codeId = {props.match.params.id} save={false} />}
+              />
             <Route exact path="/questionList">
               <QuestionList />
             </Route>
@@ -68,6 +73,7 @@ export default function Home() {
             <Route path='/myCode'>
               <MyCode/>
             </Route>
+            
             <Route path='/myQuestionList'>
               <MyQuestionList/>
             </Route>

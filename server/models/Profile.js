@@ -29,8 +29,11 @@ const ProfileSchema = new mongoose.Schema({
     },
     address: { 
         type : String
+    },
+    imageUrl : 
+    {
+        type:String 
     }
-    
 });
 
 const Profile = new mongoose.model("Profile",ProfileSchema)

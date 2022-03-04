@@ -9,7 +9,7 @@ export default function MyCode() {
   const [myCode, setMyCode] = useState([]);
   let history = useHistory();
   useEffect(() => {
-    let url = "http://localhost:5000/code/codeList/"+language[1]; 
+    let url = "http://localhost:5000/code/codeList/" + language[1];
     axios
       .get(url)
       .then((res) => {
@@ -19,28 +19,33 @@ export default function MyCode() {
       .catch((err) => {
         console.log(err);
       });
-  }, [language,flag]);
+  }, [language, flag]);
   function handleDelete(e) {
     const confirmBox = window.confirm(
       "Do you really want to delete this Code?"
     );
     if (confirmBox === true) {
       console.log(e.target.id);
-      let url = "http://localhost:5000/code/deleteCode/"+ e.target.id; 
+      let url = "http://localhost:5000/code/deleteCode/" + e.target.id;
       axios
         .delete(url)
         .then((res) => {
-          alert(res.data.message)
+          alert(res.data.message);
           setFlag(!flag);
         })
         .catch((err) => {
           alert(err.data);
         });
-        
     }
   }
+  const handleCopy = (e) => {
+    navigator.clipboard.writeText(
+      "http://localhost:3000/code/" + e.target.id
+    );
+    alert("Copied to Clipboard!", "success");
+  };
   return (
-    <div className="m-4">
+    <div className="m-4 ">
       <div className="m-2">
         <button
           type="button"
@@ -87,6 +92,7 @@ export default function MyCode() {
               <th scope="col">Language</th>
               <th scope="col">View</th>
               <th scope="col">Delete</th>
+              <th scope="col">Share</th>
             </tr>
           </thead>
           <tbody>
@@ -101,10 +107,16 @@ export default function MyCode() {
                     className="btn btn-outline-success"
                     id={item._id}
                     onClick={() => {
-                        history.push("/ide/" + item._id);
+                      history.push("/ide/" + item._id);
                     }}
                   >
-                    View
+                    {/* View */}
+                    <a style={{ cursor: "pointer" }}>
+                      <i
+                        className="fa fa-edit "
+                        style={{ fontSize: "24px" }}
+                      />
+                    </a>
                   </button>
                 </td>
                 <td>
@@ -114,7 +126,27 @@ export default function MyCode() {
                     className="btn btn-outline-danger"
                     onClick={handleDelete}
                   >
-                    Delete
+                    {/* Delete */}
+                    <a style={{ cursor: "pointer" }}>
+                      <i
+                        className="fa fa-remove "
+                        style={{ fontSize: "24px" }}
+                      />
+                    </a>
+                  </button>
+                </td>
+                <td>
+                  <button
+                    id={item._id}
+                    onClick={handleCopy}
+                    className="btn btn-outline-primary"
+                  >
+                    <a style={{ cursor: "pointer" }}>
+                      <i
+                        className="fa fa-share "
+                        style={{ fontSize: "24px" }}
+                      />
+                    </a>
                   </button>
                 </td>
               </tr>

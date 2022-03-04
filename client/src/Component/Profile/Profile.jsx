@@ -1,6 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import ImageUpload from "./ImageUpload";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 import "./Style.css";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
 
 export default function Profile() {
   const [profile, setProfile] = useState({
@@ -13,32 +18,38 @@ export default function Profile() {
     gender: "",
     contactNumber: "",
     address: "",
-    image:""
+    imageUrl:
+      "http://res.cloudinary.com/fad1105/image/upload/v1646303866/ldmpgbl7r2dn7wcq1vft.png",
   });
-  var date  ;
+  const [img, setImg] = useState(
+    "http://res.cloudinary.com/fad1105/image/upload/v1646303866/ldmpgbl7r2dn7wcq1vft.png"
+  );
+  var curr = new Date();
+  var date;
   useEffect(() => {
     axios
       .get("/modifyProfile/" + JSON.parse(localStorage.getItem("user"))._id)
       .then((res) => {
         console.log(res.data);
         setProfile(res.data);
-        date = new Date(profile.dateOfBirth);
-        date = date.toISOString().substr(0,10);
+        curr.setDate(profile.dateOfBirth);
+        date = curr.toISOString().substr(0, 10);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [setImg]);
   function handleChange(e) {
     const { name, value } = e.target;
-    console.log(JSON.stringify(profile));
     setProfile({
       ...profile,
       [name]: value,
     });
+    console.log(JSON.stringify(profile));
   }
   const ModifyProfile = async (e) => {
     console.log(JSON.stringify(profile));
+    setProfile({ ...profile, imageUrl: img });
     e.preventDefault();
     let url = "http://localhost:5000/modifyProfile/";
     await axios.put(url, profile).then((res) => {
@@ -83,12 +94,13 @@ export default function Profile() {
           alert(res.data.message, "success");
         });
   */
+
   return (
     <>
       <div className="container ">
-        <form>
-          <div className="row">
-            <div className="my-3 col-7 m-4 p-4 " style={{ color: "black" }}>
+        <div className="row">
+          <div className="my-3 col-7 m-4 p-4 " style={{ color: "black" }}>
+            <form>
               <div className="mb-3">
                 <label className="form-label">First Name</label>
                 <input
@@ -149,35 +161,62 @@ export default function Profile() {
                   value={profile.dateOfBirth}
                   aria-describedby="Date"
                   onChange={handleChange}
+                  defaultValue={date}
                 />
               </div>
               <div className="mb-3">
                 <label className="form-label">Gender</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="Gender"
-                  name="gender"
+
+                <div
                   value={profile.gender}
-                  aria-describedby="Title"
+                  name="gender"
                   onChange={handleChange}
-                />
+                >
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    value="MALE"
+                    name="gender"
+                    checked={profile.gender === "MALE"}
+                  />
+                  <label
+                    class="form-check-label me-3"
+                    for="flexRadioDefault1"
+                    value="MALE"
+                  >
+                    Male
+                  </label>
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    value="FEMALE"
+                    name="gender"
+                    checked={profile.gender === "FEMALE"}
+                  />{" "}
+                  <label
+                    class="form-check-label "
+                    for="flexRadioDefault1"
+                    value="FEMALE"
+                  >
+                    Female
+                  </label>
+                </div>
               </div>
               <div className="mb-3">
                 <label className="form-label">Contact Number</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="Contact Number"
+                <PhoneInput
                   name="contactNumber"
+                  placeholder="Enter phone number"
+                  // className="form-control"
                   value={profile.contactNumber}
-                  aria-describedby="Title"
-                  onChange={handleChange}
+                  onChange={(value) => {
+                    setProfile({ ...profile, contactNumber: value });
+                  }}
                 />
               </div>
               <div className="mb-3">
                 <label className="form-label">Address</label>
-                <input
+                <textarea
                   type="text"
                   className="form-control"
                   id="Address"
@@ -195,12 +234,14 @@ export default function Profile() {
               >
                 Save
               </button>
-            </div>
-            <div className="my-3 col-2 m-4 p-4 " style={{ color: "black" }}>
-              <div className="circle">
+            </form>
+          </div>
+          <div className="my-3 col-2 m-4 p-4 " style={{ color: "black" }}>
+            {/* <div className="circle">
                 <div>
                   <label for="fileField">
-                    <img src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" />
+                    <img src= {profile.imageurl=="" ? "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" : profile.imageurl }/>
+                    <img src= {profile.imageurl=="" ? "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" : profile.imageurl }/>
                   </label>
 
                   <input
@@ -212,10 +253,16 @@ export default function Profile() {
                     // onChange={}
                   />
                 </div>
-              </div>
-            </div>
+              </div> */}
+            {/* <ImageUpload profile={profile} setProfile={setProfile} /> */}
+            {/* <Popup trigger={<button className="button"><img src= {profile.imageurl=="" ? "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" : profile.imageurl }/> </button>} modal> */}
+
+            <ImageUpload profile={profile} setProfile={setProfile} />
+            {/* <img src= "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"/> */}
+            {/* <img src= "http://res.cloudinary.com/fad1105/image/upload/v1646303866/ldmpgbl7r2dn7wcq1vft.png" style={{height:"300px"}}/> */}
+            {/* <img src= {img} style={{height:"300px"}}/> */}
           </div>
-        </form>
+        </div>
       </div>
     </>
   );
