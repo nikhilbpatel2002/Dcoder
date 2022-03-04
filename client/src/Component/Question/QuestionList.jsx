@@ -11,7 +11,7 @@ export default function QuestionList() {
   let history = useHistory();
   useEffect(() => {
     axios
-      .get("/question/questionList/" + difficulty + "/" + tag)
+      .get("http://localhost:5000/question/questionList/" + difficulty + "/" + tag)
       .then((res) => {
         console.log(res);
         setQuestions(res.data);
