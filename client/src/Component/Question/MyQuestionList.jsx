@@ -161,7 +161,11 @@ export default function QuestionList() {
                   }}
                   id={item._id}
                 >
-                  Read
+                  {/* Read */}
+                  <a style={{ cursor: "pointer" }}>
+                      {/* <i className="fa fa-eye " style={{ fontSize: "24px" }} /> */}
+                      <i className="bi-bullseye" style={{ fontSize: "24px" }} />
+                    </a>
                 </button>
               </td>
               <td>
@@ -173,7 +177,10 @@ export default function QuestionList() {
                   }}
                   id={item._id}
                 >
-                  Edit
+                  {/* Edit */}
+                  <a style={{ cursor: "pointer" }}>
+                      <i className="fa fa-edit " style={{ fontSize: "24px" }} />
+                    </a>
                 </button>
               </td>
 
@@ -184,7 +191,13 @@ export default function QuestionList() {
                   className="btn btn-outline-danger"
                   onClick={handleDelete}
                 >
-                  Delete
+                  {/* Delete */}
+                  <a style={{ cursor: "pointer" }}>
+                      <i
+                        className="fa fa-remove "
+                        style={{ fontSize: "24px" }}
+                      />
+                    </a>
                 </button>
               </td>
             </tr>

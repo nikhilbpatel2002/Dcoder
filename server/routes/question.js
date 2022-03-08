@@ -10,8 +10,8 @@ const Question = require('../models/Question');
 
 // get qeustions by filder
 router.get('/questionList/:difficulty/:tag', async (req, res) => {
-    // console.log(req.params.difficulty.toString());
-    let question = Question();
+    console.log(req.params.difficulty.toString());
+    let question ;
     if (req.params.difficulty.toString() == "all" && req.params.tag.toString() == "all") question = await Question.find({});
     else if (req.params.difficulty.toString() == "all") {
         //only search by tag
