@@ -30,13 +30,24 @@ function Otp()
     {
         if(userOtp.otp===validOtp)
         {
-            axios.post("http://localhost:5000/register/otp",user)
-            .then ( res => {
-                {
-                    history.push("/login")
-                }
-                
-            })
+            if(user.fName)
+            {
+                axios.post("http://localhost:5000/register/otp",user)
+                .then ( res => {
+                    {
+                        history.push("/login")
+                    }
+                    
+                })
+            }
+            else {
+                axios.put("http://localhost:5000/forgotPassword/otp",user)
+                .then ( res => {
+                    {
+                        history.push("/login")
+                    }
+                })
+            }
         }else{
             // alert("invalid")
             setAlert("Please Enter Correct OTP !!")

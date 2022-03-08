@@ -7,12 +7,11 @@ import {useHistory} from "react-router-dom"
 import useStyles from '../Form/styles';
 
 
-function Register ({showAlert}) {
+function ForgotPassword ({showAlert}) {
     let history = useHistory()
     const classes = useStyles();
     const [alert, setAlert] = useState(false);
     const [user , setUser] = useState({
-        fName : "",
         email : "",
         password : "",
         rePassword:""
@@ -30,18 +29,18 @@ function Register ({showAlert}) {
 
     function register ()
     {
-        const {fName,email,password,rePassword}=user
+        const {email,password,rePassword}=user
 
-        if(fName && email && password && password===rePassword)
+        if(email && password && password===rePassword)
         {
             // alert("valid")
-            axios.post("http://localhost:5000/register",user)
+            axios.post("http://localhost:5000/forgotPassword",user)
             .then ( res => {
                 {
                     if (res.data.message)
                     {
-                        // showAlert(res.data.message,"warning")
-                        history.push("/login")
+                        showAlert(res.data.message,"warning")
+                        history.push("/forgotPassword")
                     }
                     else
                     {
@@ -64,17 +63,17 @@ function Register ({showAlert}) {
         {alert ? <Alert icon={false} severity='error'>Please Fill the Form!!</Alert> : "" }
         <Paper className={classes.paper}>
             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`}>
-                <Typography variant="h6">Register</Typography>
-                <TextField required name="fName" variant="outlined" label="Name" fullWidth value={user.fName} onChange={handleChange} />
+                <Typography variant="h6">Forgot Password</Typography>
                 <TextField required name="email" variant="outlined" label="Email" fullWidth value={user.email} onChange={handleChange} />
-                <TextField required name="password" type="password" variant="outlined" label="Password" fullWidth value={user.password} onChange={handleChange}/>
-                <TextField required name="rePassword" type="password" variant="outlined" label="Re-Password" fullWidth value={user.rePassword} onChange={handleChange}/>
-                <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" fullWidth onClick={register}>Register</Button>
-                <Link className={classes.buttonLink} component="button" underline="none" onClick={() => history.push("/login")}> Already Registered? </Link>
+                <TextField required name="password" type="password" variant="outlined" label="New Password" fullWidth value={user.password} onChange={handleChange}/>
+                <TextField required name="rePassword" type="password" variant="outlined" label="New Password, Again" fullWidth value={user.rePassword} onChange={handleChange}/>
+                <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" fullWidth onClick={register}>Send Otp</Button>
+                <Link className={classes.buttonLink} component="button" underline="none" onClick={() => history.push("/login")}> Back To Login </Link>
+                
             </form>
         </Paper>
         </>
     )
 }
 
-export default Register ;
+export default ForgotPassword ;

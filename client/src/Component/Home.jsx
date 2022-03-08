@@ -15,6 +15,7 @@ import MyQuestionList from "./Question/MyQuestionList";
 import MyCode from "./IDE/MyCode";
 import Index from "./Index";
 import ShowCode from "./IDE/ShowCode";
+import ForgotPassword from "./Register/ForgotPassword";
 export default function Home() {
   const [flag , setFlag]= useState(false);
   
@@ -57,6 +58,9 @@ export default function Home() {
               />
             <Route exact path="/Register">
               <Register />
+            </Route>
+            <Route exact path="/ForgotPassword">
+              <ForgotPassword/>
             </Route>
             <Route path="/Login" >
               <Login  flag={flag}  setFlag= {setFlag}/>
