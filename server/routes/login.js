@@ -3,6 +3,8 @@ const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const User = require('../models/User');
 
+const bcrypt = require('bcryptjs');
+
 // router.get('/question',(req,res)=>res.send("question"));
 
 
@@ -11,7 +13,7 @@ router.post("/",(req,res)=>{
     
     User.findOne({email:email},(err,user) => {
         if(user){
-            if (password == user.password){
+            if (bcrypt.hashSync(password,10) == user.password){
                 res.send({message:"Login Sucessfull",user:user})
             }else
             {

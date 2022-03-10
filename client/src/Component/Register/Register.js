@@ -7,10 +7,12 @@ import {useHistory} from "react-router-dom"
 import useStyles from '../Form/styles';
 
 
-function Register ({showAlert}) {
+function Register () {
     let history = useHistory()
     const classes = useStyles();
     const [alert, setAlert] = useState(false);
+    const [otp,setOtp] =useState("")
+    const [serverOtp,setServerOtp] = useState("")
     const [user , setUser] = useState({
         fName : "",
         email : "",
@@ -27,8 +29,13 @@ function Register ({showAlert}) {
             [name] : value
         })
     }
+    function handleOtpChange (e)
+    {
+        
+        setOtp(e.target.value)
+    }
 
-    function register ()
+    function sendOtp ()
     {
         const {fName,email,password,rePassword}=user
 
@@ -40,18 +47,22 @@ function Register ({showAlert}) {
                 {
                     if (res.data.message)
                     {
+                        console.log("hello")
                         // showAlert(res.data.message,"warning")
-                        history.push("/login")
+                        // history.push("/login")
                     }
                     else
                     {
-                        history.push({
-                            pathname:"/register/otp",
-                            state:{ otp :res.data.OTP , user : res.data.user}
-                        })
+                        setServerOtp(res.data.OTP);
+                        // history.push({
+                        //     pathname:"/register/otp",
+                        //     state:{ otp :res.data.OTP , user : res.data.user}
+                        // })
                     }
                 }
                 
+            }).catch(res=>{
+                console.log("error in send otp")
             })
         }else{
             // showAlert("Fill up complete form","danger")
@@ -59,9 +70,29 @@ function Register ({showAlert}) {
         }
         
     }
+
+    
+    function register ()
+    {
+        console.log(otp,serverOtp)
+        if(otp===serverOtp)
+        {
+            console.log(user)
+            axios.post("http://localhost:5000/register/otp",user)
+            .then ( res => {
+                    history.push("/login")
+                
+            }).catch(res=>{
+                console.log("register eroor")
+            })
+        }else{
+            // alert("invalid")
+            setAlert("Please Enter Correct OTP !!")
+        }
+    }
     return(
         <>
-        {alert ? <Alert icon={false} severity='error'>Please Fill the Form!!</Alert> : "" }
+        {alert ? <Alert icon={false} severity='error'>{alert}</Alert> : "" }
         <Paper className={classes.paper}>
             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`}>
                 <Typography variant="h6">Register</Typography>
@@ -69,8 +100,17 @@ function Register ({showAlert}) {
                 <TextField required name="email" variant="outlined" label="Email" fullWidth value={user.email} onChange={handleChange} />
                 <TextField required name="password" type="password" variant="outlined" label="Password" fullWidth value={user.password} onChange={handleChange}/>
                 <TextField required name="rePassword" type="password" variant="outlined" label="Re-Password" fullWidth value={user.rePassword} onChange={handleChange}/>
-                <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" fullWidth onClick={register}>Register</Button>
-                <Link className={classes.buttonLink} component="button" underline="none" onClick={() => history.push("/login")}> Already Registered? </Link>
+                { 
+                !serverOtp ?<>
+                 <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" fullWidth onClick={sendOtp}>Send OTP</Button>
+                 <Link className={classes.buttonLink} component="button" underline="none" onClick={() => history.push("/login")}> Already Registered? </Link>
+                </>
+                : <>
+                <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" fullWidth onClick={sendOtp}>Re-Send OTP</Button>
+                <TextField name="otp" variant="outlined" label="****" fullWidth value={otp} onChange={handleOtpChange}/>
+                <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" fullWidth onClick={register}>Verify</Button>
+                </>
+                }
             </form>
         </Paper>
         </>

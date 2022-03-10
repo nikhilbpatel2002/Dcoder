@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Contest from "./Contest/Contest";
 import Question from "./Question/Question";
 import Ide from "./IDE/Ide";
-import Otp from "./Register/Otp";
 import Profile from "./Profile/Profile";
 import QuestionList from "./Question/QuestionList";
 import QuestionWriter from "./Question/QuestionWriter";
@@ -64,9 +63,6 @@ export default function Home() {
             </Route>
             <Route path="/Login" >
               <Login  flag={flag}  setFlag= {setFlag}/>
-            </Route>
-            <Route path="/register/otp">
-              <Otp/>
             </Route>
             <Route path="/modifyProfile">
               <Profile/>
