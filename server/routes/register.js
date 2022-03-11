@@ -77,10 +77,11 @@ router.post("/",(req,res)=>{
 
 router.post("/otp",async(req,res)=>{
     const {fName , email , password } =req.body
+    const salt=await bcrypt.genSalt(10);
     const user= new User({
         fName : fName ,
         email : email ,
-        password : bcrypt.hashSync(password,10)
+        password : bcrypt.hash(password,salt)
     })
     user.save(async(err) => {
         if(err){

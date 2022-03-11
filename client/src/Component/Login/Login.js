@@ -72,8 +72,9 @@ function Login (props) {
                     <TextField required name="password" type="password" variant="outlined" label="Password" fullWidth value={user.password} onChange={handleChange} />
                     <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" fullWidth onClick={login}>Login</Button>
                     <Link className={classes.buttonLink} component="button" underline="none" onClick={() => history.push("/register")}> New to Dcoder? </Link>
+                    <div className='container d-flex  justify-content-end' style = {{fontSize: "10px"}}>
                     <Link className={classes.buttonLink} component="button" underline="none" onClick={() => history.push("/forgotPassword")}> Forgot Your Password? </Link>
-                    
+                    </div>
                 </form>
             </Paper>
         </>

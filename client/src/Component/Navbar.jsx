@@ -9,8 +9,8 @@ export default function Navbar(props) {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
-          {props.title}
+        <Link className="navbar-brand"  to="/" style={{ color: "#e8ba68" }}>
+          {"</"} {props.title} {">"}
         </Link>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
@@ -25,7 +25,7 @@ export default function Navbar(props) {
                 aria-current="page"
                 to="/contest"
               >
-                Contest
+                Upcoming Contest
               </Link>
             </li>
             <li className="nav-item">

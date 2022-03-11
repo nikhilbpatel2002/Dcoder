@@ -31,7 +31,8 @@ export default function Question(props) {
   return (
     <>
       <div className="mt-4">
-        <h1>{question.title}</h1>
+        
+        <h1 className="mx-4">{question.title}</h1>
         <hr />
         <div className="m-4">
           <div>
@@ -54,7 +55,7 @@ export default function Question(props) {
             <h4>Sample Output</h4>
             <div dangerouslySetInnerHTML={{ __html: question.sampleOutput }} />
           </div>
-          <div>
+          <div className="my-3">
             <h4> Tags </h4>
             <div>{question.tags}</div>
             {/* <div>{printTag(question.tags)}</div> */}

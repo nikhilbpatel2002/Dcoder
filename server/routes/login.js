@@ -13,7 +13,7 @@ router.post("/",(req,res)=>{
     
     User.findOne({email:email},(err,user) => {
         if(user){
-            if (bcrypt.hashSync(password,10) == user.password){
+            if (password == user.password){
                 res.send({message:"Login Sucessfull",user:user})
             }else
             {

@@ -89,7 +89,7 @@ function ForgotPassword ({showAlert}) {
         {alert ? <Alert icon={false} severity='error'>{alert}</Alert> : "" }
         <Paper className={classes.paper}>
             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`}>
-                <Typography variant="h6">Forgot Password</Typography>
+                <Typography variant="h6">Reset Password</Typography>
                 <TextField required name="email" variant="outlined" label="Email" fullWidth value={user.email} onChange={handleChange} />
                 <TextField required name="password" type="password" variant="outlined" label="New Password" fullWidth value={user.password} onChange={handleChange}/>
                 <TextField required name="rePassword" type="password" variant="outlined" label="Confirm New Password" fullWidth value={user.rePassword} onChange={handleChange}/>
