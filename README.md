@@ -1,4 +1,4 @@
-# Decoder - A Competitive Programming Portal
+# Dcoder - A Competitive Programming Portal
 
 ### Table of Contents
 - [Dcoder - A Competitive Programming Portal](#decoder---a-competitive-programming-portal)
