@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>279</x>
+      <y>360</y>
+      <w>171</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>User
+--
+-fName: String
+-email: String
+-password: String
+-mycodes: String[]
+--
++login(id password) boolean 
+-verifyEmail(email):boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>279</x>
+      <y>81</y>
+      <w>189</w>
+      <h>207</h>
+    </coordinates>
+    <panel_attributes>Profile 	
+--
+-userId:ObjectId
+-fName:String
+-lName:String
+-companyName:String
+-collegeName:String
+-dateOfBirth:Date
+-gender:String
+-contactNumber:String
+-address:String
+-imageUrl : String 
+--
++CreateProfile(Profile):boolean
++updateProfile(Profile):boolean
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>27</x>
+      <y>333</y>
+      <w>189</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>Code
+--
+-userId:ObjectId
+-fileName:String
+-code:String
+-language:String
+--
++SaveCode(Code):boolean
++DeleteCode(Code):boolean
++CompileCode(Code):String
++getCodes(userId):Code[] 
++getCode(codeId):Code</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>531</x>
+      <y>315</y>
+      <w>243</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>Question
+--
+-userId:ObjectId
+-challengeDifficulty:String
+-title:String
+-description:String 
+-inputFormat:String
+-outputFormat:String
+-sampleInput:String
+-sampleOutput:String 
+-tags:String[]    
+--
++CreateQuestion(Question):boolean 
++UpdateQuestion(Question):boolean
++DeleteQuestion(Question):boolean
++GetAllQuestion():Question[]
++GetQuestion(QuestionId):Question
++MyQuestion(UserId):Question[]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>441</x>
+      <y>414</y>
+      <w>108</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1..N</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>207</x>
+      <y>414</y>
+      <w>90</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1..N</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>360</x>
+      <y>279</y>
+      <w>45</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1..1</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

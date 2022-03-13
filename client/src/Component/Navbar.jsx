@@ -47,7 +47,17 @@ export default function Navbar(props) {
                   My code
                 </Link>
               </li>
+
             )}
+            <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/QuestionWriter"
+                >
+                  Add Question
+                </Link>
+              </li>
             {/* {JSON.parse(localStorage.getItem("user")) && (
               <li className="nav-item">
                 <Link
