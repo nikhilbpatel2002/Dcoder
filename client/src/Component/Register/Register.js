@@ -41,13 +41,14 @@ function Register () {
 
         if(fName && email && password && password===rePassword)
         {
-            // alert("valid")
+            //setAlert("valid")
             axios.post("http://localhost:5000/register",user)
             .then ( res => {
                 {
+                    console.log(res.data.message)
                     if (res.data.message)
                     {
-                        console.log("hello")
+                        console.log("hello");
                         // showAlert(res.data.message,"warning")
                         // history.push("/login")
                     }
@@ -65,8 +66,8 @@ function Register () {
                 console.log("error in send otp")
             })
         }else{
-            // showAlert("Fill up complete form","danger")
-            setAlert(true);
+             // showAlert("Fill up complete form","danger")
+            setAlert("Please Fill up complete form");
         }
         
     }
@@ -83,7 +84,7 @@ function Register () {
                     history.push("/login")
                 
             }).catch(res=>{
-                console.log("register eroor")
+                console.log("register error")
             })
         }else{
             // alert("invalid")

@@ -3,7 +3,6 @@ const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const User = require('../models/User');
 const nodemailer = require('nodemailer');
-const bcrypt = require('bcryptjs');
 
 
 var transporter = nodemailer.createTransport({
@@ -75,12 +74,11 @@ router.post("/",(req,res)=>{
 
 router.put("/otp",async(req,res)=>{
     const {email , password } =req.body
-    // password = bcrypt.hashSync(password,10)
     User.updateOne(
         { email: email },
         {
             $set: {
-                password:bcrypt.hashSync(password,10)
+                password: password
             }
         }
     ).then(res.send({ message: "Password Updated successfully." })).catch((err)=>console.log(err));

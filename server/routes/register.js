@@ -5,8 +5,6 @@ const User = require('../models/User');
 const Profile = require('../models/Profile');
 const nodemailer = require('nodemailer');
 
-const bcrypt = require('bcryptjs');
-
 
 var transporter = nodemailer.createTransport({
     service:'gmail',
@@ -77,11 +75,10 @@ router.post("/",(req,res)=>{
 
 router.post("/otp",async(req,res)=>{
     const {fName , email , password } =req.body
-    const salt=await bcrypt.genSalt(10);
     const user= new User({
         fName : fName ,
         email : email ,
-        password : bcrypt.hash(password,salt)
+        password : password 
     })
     user.save(async(err) => {
         if(err){
