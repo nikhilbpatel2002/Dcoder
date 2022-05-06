@@ -49,15 +49,7 @@ export default function Navbar(props) {
               </li>
 
             )}
-            <li className="nav-item">
-                <Link
-                  className="nav-link active"
-                  aria-current="page"
-                  to="/QuestionWriter"
-                >
-                  Add Question
-                </Link>
-              </li>
+            
             {/* {JSON.parse(localStorage.getItem("user")) && (
               <li className="nav-item">
                 <Link
@@ -100,6 +92,9 @@ export default function Navbar(props) {
                       </Link>
                     </li>
                     <li>
+                      <Link className="dropdown-item" to="/QuestionWriter">
+                        Add Question
+                      </Link>
                       <Link className="dropdown-item" to="/myQuestionList">
                         My Question
                       </Link>

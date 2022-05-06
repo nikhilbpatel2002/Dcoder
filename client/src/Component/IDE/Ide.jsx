@@ -161,7 +161,7 @@ export default function Ide(props) {
             <div className="col-3"></div>
             <div className="col-3">
               {
-                props.save ?(
+                props.save && JSON.parse(localStorage.getItem("user"))?(
                   <div className="row">
                 <div className="col-2 "></div>
                 <div className="col-2  pt-3">
@@ -207,15 +207,30 @@ export default function Ide(props) {
                 :
                 (
                   <div className="row">
-                <div className="col-7 "></div>
+                <div className="col-5"></div>
                 <div className="col-2  pt-3">
                   <i
                     onClick={downloadTxtFile}
                     className="fa    fa-download"
                     style={{ fontSize: "24px", color: "white" }}
                   ></i>
-                </div>
+                </div> 
 
+                <div className="col-2">
+                  <label for="files" className="btn">
+                    <i
+                      className="fa   pt-2  fa-upload"
+                      style={{ fontSize: "24px", color: "white" }}
+                    ></i>
+                  </label>
+                  <input
+                    id="files"
+                    style={{ display: "none" }}
+                    type="file"
+                    onChange={showFile}
+                  />
+                </div>
+             
                 <div className="col-3">
                   <a onClick={handleCopy} style={{ cursor: "pointer" }}>
                     <i
