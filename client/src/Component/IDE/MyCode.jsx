@@ -41,7 +41,8 @@ export default function MyCode() {
         });
     }
   }
-  const handleCopy = (e) => {
+  function handleCopy(e) {
+    console.log(e.target.id );
     navigator.clipboard.writeText("http://localhost:3000/code/" + e.target.id);
     alert("Copied to Clipboard!", "success");
   };
@@ -139,10 +140,11 @@ export default function MyCode() {
                     onClick={handleCopy}
                     className="btn btn-outline-primary"
                   >
-                    <a style={{ cursor: "pointer" }}>
+                    <a style={{ cursor: "pointer" }}  >
                       <i
                         className="fa fa-share "
                         style={{ fontSize: "24px" }}
+                        
                       />
                     </a>
                   </button>
