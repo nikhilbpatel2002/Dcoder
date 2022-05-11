@@ -24,7 +24,7 @@
 * Other tools and technologies used :
   * [Bootstrap](http://www.getbootstrap.com) : layout and styles
   * [Font Awesome](http://fontawesome.com) : icons
-<!--   * [Ace Editor](https://ace.c9.io/) : code editor -->
+  * [Moneco Editor](https://www.npmjs.com/package/@monaco-editor/react) : code editor
   * [Kontests](https://www.kontests.net/) : api for upcomming contests data
  
 * Profile images store in [Cloudinary](https://cloudinary.com/)
@@ -32,16 +32,11 @@
   - Register, Login / Logout
   - Compile and Run your Code
   - Nice Code editor
-  - Code Sharing via link and Some of the permissions
+  - Code Save and Sharing via link 
   - DSA questions 
   - Upcoming contest information
     - Using APIs from websites like codeforces.com, clist.by system will provide upcoming contest information. this information will contain time for contest, division of contest, link to contest etc. 
-<!--   - Stress Testing
-    - Stress testing is useful to find test cases on which user's code fails.
-    - User will have to provide brute force code (always generates the correct output for test cases)
-    - Efficient solution created by user ( code which may fail on some test case)
-    - random test case generator file
- -->
+
 ## Installtion
 - Install [Node.js](https://nodejs.org/en/), [ReactJs](https://reactjs.org/docs/getting-started.html), [MongoDB](https://www.mongodb.com/)
 ```python
