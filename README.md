@@ -41,7 +41,7 @@
 - Install [Node.js](https://nodejs.org/en/), [ReactJs](https://reactjs.org/docs/getting-started.html), [MongoDB](https://www.mongodb.com/)
 ```python
 # will download this repository locally
-git clone https://github.com/fad1105/Dcoder.git
+git clone [https://github.com/nikhilbpatel2002/Dcoder.git]
 (or manually download this project)
 # will install all the dependencies for project
 #go to ./server
