@@ -18,7 +18,7 @@
 * This project uses the [MERN stack](https://www.mongodb.com/mern-stack) :
   * [**M**ongoose.js](http://www.mongoosejs.com) ([MongoDB](https://www.mongodb.com)) : database
   * [**E**xpress.js](http://expressjs.com) : backend framework
-  * [**R**eact.js](https://reactjs.org/) : frontend framework
+  * [**R**eact.js](https://reactjs.org/) : frontend library
   * [**N**ode.js](https://nodejs.org) : runtime environment
 
 * Other tools and technologies used :
